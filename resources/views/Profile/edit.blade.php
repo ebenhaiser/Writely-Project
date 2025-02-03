@@ -1,7 +1,30 @@
 <x-layout>
     <div class="container-fluid">
-
-
+        @if (session('successEditProfile'))
+            <div class="alert alert-success alert-dismissible" role="alert">
+                {{ session('successEditProfile') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
+        @elseif (session('errorOldPassword'))
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                {{ session('errorOldPassword') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
+        @elseif (session('errorNewPassword'))
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                {{ session('errorNewPassword') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
+        @elseif (session('successChangePassword'))
+            <div class="alert alert-success alert-dismissible" role="alert">
+                {{ session('successChangePassword') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
+        @endif
         {{-- Change profile picture --}}
         <div class="card">
             <div class="card-body">
@@ -65,26 +88,29 @@
                 <div class="h3">Profile</div>
             </div>
             <div class="card-body">
-                <div class="mb-3">
-                    <label for="" class="form-label">Display Name</label>
-                    <input type="text" name="name" class="form-control" value="{{ $profile->name }}"
-                        id="" aria-describedby="">
-                    <div id="" class="form-text">This name will diplay in you profile</div>
-                </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">Username</label>
-                    <input type="text" name="username" class="form-control" value="{{ $profile->username }}"
-                        id="" aria-describedby="">
-                    <div id="" class="form-text">This username will be your profile name</div>
-                </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">Bio</label>
-                    <textarea name="bio" class="form-control" id="" cols="30" rows="3">{{ $profile->bio }}</textarea>
-                    <div id="" class="form-text">Type something fum about yourself</div>
-                </div>
-                <div align="right">
-                    <button class="btn btn-primary">Change Profile</button>
-                </div>
+                <form action="{{ route('profile.edit.submit', $profile->username) }}" method="post">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="" class="form-label">Display Name</label>
+                        <input type="text" name="name" class="form-control" value="{{ $profile->name }}"
+                            id="" aria-describedby="">
+                        <div id="" class="form-text">This name will diplay in you profile</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" value="{{ $profile->username }}"
+                            id="" aria-describedby="">
+                        <div id="" class="form-text">This username will be your profile name</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Bio</label>
+                        <textarea name="bio" class="form-control" id="" cols="30" rows="3">{{ $profile->bio }}</textarea>
+                        <div id="" class="form-text">Type something fun about yourself</div>
+                    </div>
+                    <div align="right">
+                        <button class="btn btn-primary">Change Profile</button>
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -120,23 +146,26 @@
                 <div class="h3">Change Password</div>
             </div>
             <div class="card-body">
-                <div class="mb-3">
-                    <label for="" class="form-label">Current Password</label>
-                    <input type="password" name="old_password" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">New Password</label>
-                    <input type="password" name="new_password1" class="form-control" id=""
-                        aria-describedby="">
-                </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">Confirm Password</label>
-                    <input type="password" name="new_password2" class="form-control" id=""
-                        aria-describedby="">
-                </div>
-                <div align="right">
-                    <button class="btn btn-primary">Change Password</button>
-                </div>
+                <form action="{{ route('change.password.submit', $profile->username) }}" method="post">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="" class="form-label">Current Password</label>
+                        <input type="password" name="old_password" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">New Password</label>
+                        <input type="password" name="new_password1" class="form-control" id=""
+                            aria-describedby="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Confirm Password</label>
+                        <input type="password" name="new_password2" class="form-control" id=""
+                            aria-describedby="">
+                    </div>
+                    <div align="right">
+                        <button class="btn btn-primary">Change Password</button>
+                    </div>
+                </form>
             </div>
         </div>
 

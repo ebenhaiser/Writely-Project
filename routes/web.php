@@ -19,6 +19,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/id/{username}/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
+    Route::post('/id/{username}/edit/editProfileSubmit', [ProfileController::class, 'editProfileSubmit'])->name('profile.edit.submit');
+    Route::post('/id/{username}/edit/changePasswordSubmit', [ProfileController::class, 'changePasswordSubmit'])->name('change.password.submit');
 });
 
 
