@@ -33,9 +33,9 @@
                                 <form action="{{ route('register.submit') }}" method="post">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="exampleInputtext1" class="form-label">Username</label>
-                                        <input type="text" name="username" class="form-control"
-                                            id="exampleInputtext1" aria-describedby="textHelp">
+                                        <label for="exampleInputtext1" class="form-label">Name</label>
+                                        <input type="text" name="name" class="form-control" id="exampleInputtext1"
+                                            aria-describedby="textHelp">
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email Address</label>
