@@ -13,4 +13,6 @@ Route::post('/login/submit', [AuthController::class, 'loginSubmit'])->name('logi
 Route::get('/register', [AuthController::class, 'registerView'])->name('register');
 Route::post('/register/submit', [AuthController::class, 'registerSubmit'])->name('register.submit');
 
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
 Route::get('/', [DashboardController::class, 'home'])->name('home');
