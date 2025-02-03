@@ -1,6 +1,12 @@
-f<x-layout>
+<x-layout>
     <div class="container-fluid">
-        @if (session('successEditProfile'))
+        @if (session('successProfilePicture'))
+            <div class="alert alert-success alert-dismissible" role="alert">
+                {{ session('successProfilePicture') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
+        @elseif (session('successEditProfile'))
             <div class="alert alert-success alert-dismissible" role="alert">
                 {{ session('successEditProfile') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
@@ -102,9 +108,9 @@ f<x-layout>
                     <div class="d-flex align-items-center avatar-edit">
                         <div
                             class="avatar-profile avatar-xxl avatar-indicators avatar-online me-2 position-relative d-flex justify-content-end align-items-end mt-n10">
-                            <img src="{{ asset('assets/images/profile/user-1.jpg') }}" alt=""
-                                class="avatar-xxl rounded-circle border border-4 border-white-color-40" width="80"
-                                height="80">
+                            <img src="{{ asset('img/profilePicture/' . (Auth::user()->profile_picture && file_exists(public_path('img/profilePicture/' . Auth::user()->profile_picture)) ? Auth::user()->profile_picture : 'default.jpg')) }}"
+                                alt="" class="avatar-xxl rounded-circle border border-4 border-white-color-40"
+                                width="80" height="80">
                             {{-- <a class="position-absolute top-0 right-0 me-2" data-bs-toggle="tooltip"
                                 data-placement="top" title="" data-original-title="Verified"
                                 href="/pages/profile#!"><img src="https://placehold.co/400" alt=""

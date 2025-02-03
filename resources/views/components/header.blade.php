@@ -20,8 +20,8 @@
                         <a class="nav-link" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             <span>
-                                <img src="{{ asset('assets/images/profile/user-1.jpg') }}" alt="" width="35"
-                                    height="35" class="rounded-circle nav-icon-hover">
+                                <img src="{{ asset('img/profilePicture/' . (Auth::user()->profile_picture && file_exists(public_path('img/profilePicture/' . Auth::user()->profile_picture)) ? Auth::user()->profile_picture : 'default.jpg')) }}"
+                                    alt="" width="35" height="35" class="rounded-circle nav-icon-hover">
                             </span>
                             <style>
                                 @media (max-width: 768px) {

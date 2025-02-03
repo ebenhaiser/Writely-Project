@@ -135,8 +135,8 @@ class ProfileController extends Controller
         $newImageName = $profile->id . $profile->username . '.' . $ext;
 
         // Simpan file ke storage/app/public/img/profilePicture
-        $path = $file->storeAs('public/img/profilePicture' . $newImageName);
-        // $path = $file->move(public_path('img/profilePicture'), $newImageName);
+        // $path = $file->storeAs('public/img/profilePicture' . $newImageName);
+        $path = $file->move(public_path('img/profilePicture'), $newImageName);
 
         $profile->profile_picture = $newImageName;
         $profile->save();
