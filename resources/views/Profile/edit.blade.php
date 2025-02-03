@@ -1,8 +1,14 @@
-<x-layout>
+f<x-layout>
     <div class="container-fluid">
         @if (session('successEditProfile'))
             <div class="alert alert-success alert-dismissible" role="alert">
                 {{ session('successEditProfile') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
+        @elseif (session('errorUsernameTaken'))
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                {{ session('errorUsernameTaken') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                 </button>
             </div>
@@ -24,14 +30,78 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                 </button>
             </div>
+        @elseif (session('errorNewEmailTaken'))
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                {{ session('errorNewEmailTaken') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
+        @elseif (session('errorNewEmailPassword'))
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                {{ session('errorNewEmailPassword') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
+        @elseif (session('successChangeEmail'))
+            <div class="alert alert-success alert-dismissible" role="alert">
+                {{ session('successChangeEmail') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
+        @elseif (session('errorDeleteAccount'))
+            <div class="alert alert-success alert-dismissible" role="alert">
+                {{ session('errorDeleteAccount') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+            </div>
         @endif
         {{-- Change profile picture --}}
+        <style>
+            <style>.avatar-profile img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .profile-name h2 {
+                font-size: 18px;
+            }
+
+            .profile-name p {
+                font-size: 14px;
+            }
+
+            @media (max-width: 768px) {
+                .avatar-profile img {
+                    width: 80px;
+                    height: 80px;
+                }
+
+                .profile-name h2 {
+                    font-size: 18px;
+                }
+
+                .profile-name p {
+                    font-size: 14px;
+                }
+
+                .btn-edit-profile a {
+                    font-size: 12px;
+                    width: 60px;
+                    padding: 4px 8px;
+                }
+
+                .profile-post-follow span h5,
+                .profile-post-follow span p {
+                    font-size: 14px
+                }
+            }
+        </style>
         <div class="card">
             <div class="card-body">
-                <div class="d-flex align-items-center justify-content-between pt-4 pb-6 px-4">
-                    <div class="d-flex align-items-center">
+                <div class="d-flex flex-wrap align-items-center justify-content-between pt-4 pb-6 px-0">
+                    <div class="d-flex align-items-center avatar-edit">
                         <div
-                            class="avatar-xxl avatar-indicators avatar-online me-2 position-relative d-flex justify-content-end align-items-end mt-n10">
+                            class="avatar-profile avatar-xxl avatar-indicators avatar-online me-2 position-relative d-flex justify-content-end align-items-end mt-n10">
                             <img src="{{ asset('assets/images/profile/user-1.jpg') }}" alt=""
                                 class="avatar-xxl rounded-circle border border-4 border-white-color-40" width="80"
                                 height="80">
@@ -41,7 +111,7 @@
                                     height="30" width="30" class="">
                             </a> --}}
                         </div>
-                        <div class="lh-1">
+                        <div class="lh-1 profile-name">
                             <h2 class="mb-0">{{ $profile->name }}<a class="text-decoration-none"
                                     data-bs-toggle="tooltip" data-placement="top" title=""
                                     data-original-title="Beginner" href="/pages/profile#!"></a></h2>
@@ -49,7 +119,7 @@
                         </div>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
                             data-bs-target="#change-profile-picture">Change Profile Picture</button>
                     </div>
 
@@ -64,15 +134,20 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body" align="center">
-                                    <input type="file" name="new_profile_picture" class="form-control">
-                                    <div id="" class="form-text">Upload your picture</div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Delete Account</button>
-                                </div>
+                                <form action="{{ route('update.profile.picture', $profile->username) }}" method="post"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="modal-body" align="center">
+                                        <input type="file" name="profile_picture" accept="image/*"
+                                            class="form-control" required>
+                                        <div id="" class="form-text">Upload your picture</div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                        <button class="btn btn-primary">Change Picture</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -93,13 +168,13 @@
                     <div class="mb-3">
                         <label for="" class="form-label">Display Name</label>
                         <input type="text" name="name" class="form-control" value="{{ $profile->name }}"
-                            id="" aria-describedby="">
+                            id="" aria-describedby="" required>
                         <div id="" class="form-text">This name will diplay in you profile</div>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Username</label>
                         <input type="text" name="username" class="form-control" value="{{ $profile->username }}"
-                            id="" aria-describedby="">
+                            id="" aria-describedby="" required>
                         <div id="" class="form-text">This username will be your profile name</div>
                     </div>
                     <div class="mb-3">
@@ -121,21 +196,47 @@
                 <div class="h3">Email</div>
             </div>
             <div class="card-body">
-                <div class="mb-3">
-                    <label for="" class="form-label">Curent Email address</label>
-                    <input type="text" class="form-control" value="{{ $profile->email }}" readonly>
-                </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">New Email address</label>
-                    <input name="new_email1" class="form-control" id="" aria-describedby="">
-                </div>
-                <div class="mb-3">
-                    <label for="" class="form-label">Confirm Email address</label>
-                    <input name="new_email2" class="form-control" id="" aria-describedby="">
-                </div>
-                <div align="right">
-                    <button class="btn btn-primary">Change Email</button>
-                </div>
+                <form action="{{ route('change.email.submit', $profile->username) }}" method="post">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="" class="form-label">Curent Email address</label>
+                        <input type="text" class="form-control" value="{{ $profile->email }}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">New Email address</label>
+                        <input name="new_email1" class="form-control" id="" aria-describedby="" required>
+                    </div>
+                    <div align="right">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#change-email">Change Email</button>
+                    </div>
+
+                    {{-- modal --}}
+                    <div class="modal fade" id="change-email" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                        Change Email</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" align="center">
+                                    <input type="password" name="password" class="form-control"
+                                        placeholder="Enter password" required>
+                                    <div id="" class="form-text">Enter your password for changing email</div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Change Email</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- end modal --}}
+                </form>
             </div>
         </div>
 
@@ -150,17 +251,17 @@
                     @csrf
                     <div class="mb-3">
                         <label for="" class="form-label">Current Password</label>
-                        <input type="password" name="old_password" class="form-control">
+                        <input type="password" name="old_password" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">New Password</label>
                         <input type="password" name="new_password1" class="form-control" id=""
-                            aria-describedby="">
+                            aria-describedby="" required>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Confirm Password</label>
                         <input type="password" name="new_password2" class="form-control" id=""
-                            aria-describedby="">
+                            aria-describedby="" required>
                     </div>
                     <div align="right">
                         <button class="btn btn-primary">Change Password</button>
@@ -187,40 +288,53 @@
                     <div class="h3">Danger Zone</div>
                 </div>
                 <div class="card-body">
-                    <div>
-                        <div id="" class="mb-3 form-text">Please don't do anything silly</div>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#delete-account-modal">Delete Account</button>
-                    </div>
+                    <form action="{{ route('delete.account.submit', $profile->username) }}" method="post">
+                        @csrf
+                        <div>
+                            <div id="" class="mb-3 form-text">Please don't do anything silly
+                            </div>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#delete-account-modal">Delete Account</button>
+                        </div>
 
-                    {{-- modal --}}
-                    <div class="modal fade" id="delete-account-modal" tabindex="-1"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel"
-                                        style="color: rgb(235, 0, 0)">Delete Account</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body" align="center">
-                                    <div id="" class="mb-3 form-text" style="color: red">Are you sure want
-                                        to delete your
-                                        precious account?</div>
-                                    <input type="text" name="password" class="form-control"
-                                        style="border: 1px solid red">
-                                    <div id="" class="form-text">Enter your password</div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-danger">Delete Account</button>
+                        {{-- modal --}}
+                        <div class="modal fade" id="delete-account-modal" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel"
+                                            style="color: rgb(235, 0, 0)">Delete
+                                            Account</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="" class="mb-3 form-text" style="color: red">Are you sure
+                                            want
+                                            to DELETE your precious account?</div>
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Email</label>
+                                            <input type="text" name="email" class="form-control" required>
+                                        </div>
+                                        <div class="">
+                                            <label for="" class="form-label">Password</label>
+                                            <input type="password" name="password" class="form-control" required>
+                                        </div>
+                                        <div id="" class="mb-3 form-text" style="color: red">Enter your
+                                            email
+                                            and password to DELETE your account</div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger">Delete Account</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {{-- end modal --}}
+                        {{-- end modal --}}
+                    </form>
                 </div>
             </div>
         </div>

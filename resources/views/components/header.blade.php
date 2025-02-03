@@ -23,7 +23,14 @@
                                 <img src="{{ asset('assets/images/profile/user-1.jpg') }}" alt="" width="35"
                                     height="35" class="rounded-circle nav-icon-hover">
                             </span>
-                            <span class="ms-2 fw-bold" style="font-size: 1rem">
+                            <style>
+                                @media (max-width: 768px) {
+                                    .header-profile-name {
+                                        display: none
+                                    }
+                                }
+                            </style>
+                            <span class="ms-2 fw-bold header-profile-name" style="font-size: 1rem">
                                 {{ Auth::user()->name }}
                             </span>
                         </a>

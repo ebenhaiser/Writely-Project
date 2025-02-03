@@ -21,6 +21,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/id/{username}/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
     Route::post('/id/{username}/edit/editProfileSubmit', [ProfileController::class, 'editProfileSubmit'])->name('profile.edit.submit');
     Route::post('/id/{username}/edit/changePasswordSubmit', [ProfileController::class, 'changePasswordSubmit'])->name('change.password.submit');
+    Route::post('/id/{username}/edit/changeEmailSubmit', [ProfileController::class, 'changeEmailSubmit'])->name('change.email.submit');
+    Route::post('/id/{username}/edit/updateProfilePicture', [ProfileController::class, 'updateProfilePicture'])->name('update.profile.picture');
+    Route::post('/id/{username}/edit/deleteAccount', [ProfileController::class, 'deleteAccount'])->name('delete.account.submit');
 });
 
 
