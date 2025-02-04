@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +34,11 @@ class ProfileController extends Controller
 
         $profile = User::where('username', $username)->firstOrFail();
 
-        if (User::where('username', $request->username)
+        // $new_username = Str::slug($request->username, '_'); // Mengubah spasi menjadi underscore
+        // $new_username = strtolower($new_username); // Mengubah semua huruf menjadi lowercase
+        $new_username = strtolower(preg_replace('/[^a-zA-Z0-9._]/', '', $request->username));
+
+        if (User::where('username', $new_username)
             ->where('id', '!=', $profile->id)
             ->exists()
         ) {
@@ -41,11 +46,11 @@ class ProfileController extends Controller
         }
 
         $profile->name = $request->name;
-        $profile->username = $request->username;
+        $profile->username = $new_username;
         $profile->bio = $request->bio;
         $profile->save();
 
-        return redirect()->route('profile.edit', $profile->username)->with('successEditProfile', 'Profile updated successfully');
+        return redirect()->route('profile.edit', $new_username)->with('successEditProfile', 'Profile updated successfully');
     }
 
     public function changePasswordSubmit(Request $request, $username)

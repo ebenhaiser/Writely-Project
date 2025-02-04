@@ -31,7 +31,7 @@
                                 }
                             </style>
                             <span class="ms-2 fw-bold header-profile-name" style="font-size: 1rem">
-                                {{ Auth::user()->name }}
+                                {{ Auth::user()->username }}
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">

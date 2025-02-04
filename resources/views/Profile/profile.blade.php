@@ -60,8 +60,8 @@
                                             height="30" width="30" class="">
                                     </a> --}}
                                 </div>
-                                <div class="lh-1 profile-name">
-                                    <h2 class="mb-0">{{ $profile->name }}
+                                <div class="lh-1 profile-name me-4">
+                                    <h2 class="mb-0 ms-1">{{ $profile->name }}
                                         <p class="mb-2 d-block"><i>{{ '@' . $profile->username }}</i></p>
                                         @if ($profile->bio)
                                             <p>{{ $profile->bio }}</p>

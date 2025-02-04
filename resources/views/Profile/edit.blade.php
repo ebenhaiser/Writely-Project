@@ -174,18 +174,19 @@
                     <div class="mb-3">
                         <label for="" class="form-label">Display Name</label>
                         <input type="text" name="name" class="form-control" value="{{ $profile->name }}"
-                            id="" aria-describedby="" required>
+                            id="" aria-describedby="" maxlength="50">
                         <div id="" class="form-text">This name will diplay in you profile</div>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Username</label>
                         <input type="text" name="username" class="form-control" value="{{ $profile->username }}"
-                            id="" aria-describedby="" required>
+                            id="" aria-describedby="" required maxlength="25">
                         <div id="" class="form-text">This username will be your profile name</div>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Bio</label>
-                        <textarea name="bio" class="form-control" id="" cols="30" rows="3">{{ $profile->bio }}</textarea>
+                        <input type="text" name="bio" class="form-control" value="{{ $profile->bio }}"
+                            maxlength="100">
                         <div id="" class="form-text">Type something fun about yourself</div>
                     </div>
                     <div align="right">
@@ -210,7 +211,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">New Email address</label>
-                        <input name="new_email1" class="form-control" id="" aria-describedby="" required>
+                        <input name="new_email1" class="form-control" id="" aria-describedby="" required
+                            maxlength="50">
                     </div>
                     <div align="right">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"

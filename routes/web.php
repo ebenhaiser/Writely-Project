@@ -1,13 +1,24 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProfileController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CkeditorController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 
 // Route::get('/', function () {
 //     return view('index');
 // });
+
+// ckedito
+Route::get('ckeditorinput', [CkeditorController::class, 'index']);
+Route::post('ckeditor/upload', [CkeditorController::class, 'upload'])->name('ckeditor.upload');
+Route::post('ckeditor/create', [CkeditorController::class, 'create'])->name('ckeditor.create');
+Route::get('ckeditor/show', [CkeditorController::class, 'show'])->name('ckeditor.show');
+// end ckedito
+
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'loginView'])->name('login');
@@ -24,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/id/{username}/edit/changeEmailSubmit', [ProfileController::class, 'changeEmailSubmit'])->name('change.email.submit');
     Route::post('/id/{username}/edit/updateProfilePicture', [ProfileController::class, 'updateProfilePicture'])->name('update.profile.picture');
     Route::post('/id/{username}/edit/deleteAccount', [ProfileController::class, 'deleteAccount'])->name('delete.account.submit');
+    Route::get('/post/create', [PostController::class, 'createPost'])->name('create.post');
 });
 
 

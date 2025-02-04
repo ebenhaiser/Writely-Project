@@ -25,22 +25,26 @@
                                         alt="">
                                 </a>
                                 <p class="text-center">Your Social Campaigns</p>
-                                @if (session('error'))
+                                @if (session('errorEmail'))
                                     <div class="alert alert-danger" role="alert">
-                                        {{ session('error') }}
+                                        {{ session('errorEmail') }}
+                                    </div>
+                                @elseif (session('errorUsername'))
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ session('errorUsername') }}
                                     </div>
                                 @endif
                                 <form action="{{ route('register.submit') }}" method="post">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="exampleInputtext1" class="form-label">Name</label>
-                                        <input type="text" name="name" class="form-control" id="exampleInputtext1"
-                                            aria-describedby="textHelp">
+                                        <label for="exampleInputtext1" class="form-label">Userame</label>
+                                        <input type="text" name="username" class="form-control"
+                                            id="exampleInputtext1" aria-describedby="textHelp" maxlength="25">
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email Address</label>
                                         <input type="email" name="email" class="form-control"
-                                            id="exampleInputEmail1" aria-describedby="emailHelp">
+                                            id="exampleInputEmail1" aria-describedby="emailHelp" maxlength="50">
                                     </div>
                                     <div class="mb-4">
                                         <label for="exampleInputPassword1" class="form-label">Password</label>
