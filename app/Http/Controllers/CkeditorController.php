@@ -11,7 +11,7 @@ class CkeditorController extends Controller
 {
     public function index(): View
     {
-        return view('dummy');
+        return view('dummy3');
     }
 
     public function upload(Request $request): JsonResponse
