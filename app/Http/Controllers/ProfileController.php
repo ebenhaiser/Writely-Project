@@ -137,7 +137,14 @@ class ProfileController extends Controller
         // if (!in_array(strtolower($ext), $allowedExtensions)) {
         //     return redirect()->route('profile.edit', $profile->username)->with('errorProfilePicture', 'Invalid file type');
         // }
-        $newImageName = $profile->id . $profile->username . '.' . $ext;
+
+        // Hapus gambar lama jika ada
+        $oldImage = public_path('img/profilePicture/' . $profile->profile_picture);
+        if (file_exists($oldImage) && is_file($oldImage)) {
+            unlink($oldImage);
+        }
+
+        $newImageName = hash('sha256', $profile->id . $profile->username) . '.' . $ext;
 
         // Simpan file ke storage/app/public/img/profilePicture
         // $path = $file->storeAs('public/img/profilePicture' . $newImageName);

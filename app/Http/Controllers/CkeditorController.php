@@ -6,21 +6,24 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class CkeditorController extends Controller
 {
     public function index(): View
     {
-        return view('dummy3');
+        return view('dummy1');
     }
 
     public function upload(Request $request): JsonResponse
     {
+        $userId = Auth::user()->id;
         if ($request->hasFile('upload')) {
             $originName = $request->file('upload')->getClientOriginalName();
             $fileName = pathinfo($originName, PATHINFO_FILENAME);
             $extension = $request->file('upload')->getClientOriginalExtension();
-            $fileName = $fileName . '_' . time() . '.' . $extension;
+
+            $fileName = hash('sha256', $userId . $fileName . time()) . '.' . $extension;
 
             $request->file('upload')->move(public_path('img/postImage'), $fileName);
 

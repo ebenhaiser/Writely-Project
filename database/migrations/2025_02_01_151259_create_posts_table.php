@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('user_id')->constrained('users')->default(0);
-            // $table->foreignId('category_id')->constrained('categories')->default(0);
-            // $table->string('title')->default('title');
-            // $table->string('slug')->default('slug');
+            $table->foreignId('user_id')->constrained('users')->default(0);
+            $table->foreignId('category_id')->constrained('categories')->default(0);
+            $table->string('title')->default('title');
+            $table->string('slug')->default('slug')->unique();
             $table->text('content');
             // $table->string('image_url')->nullable();
             $table->timestamps();

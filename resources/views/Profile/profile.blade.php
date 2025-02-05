@@ -124,6 +124,8 @@
                     </div>
                 </div>
             </div>
+
         </div>
+        <x-card-post />
     </div>
 </x-layout>

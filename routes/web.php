@@ -12,12 +12,7 @@ use App\Http\Controllers\DashboardController;
 //     return view('index');
 // });
 
-// ckedito
-Route::get('ckeditorinput', [CkeditorController::class, 'index']);
-Route::post('ckeditor/upload', [CkeditorController::class, 'upload'])->name('ckeditor.upload');
-Route::post('ckeditor/create', [CkeditorController::class, 'create'])->name('ckeditor.create');
-Route::get('ckeditor/show', [CkeditorController::class, 'show'])->name('ckeditor.show');
-// end ckedito
+
 
 
 Route::middleware('guest')->group(function () {
@@ -29,16 +24,30 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    // profile
     Route::get('/id/{username}/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
     Route::post('/id/{username}/edit/editProfileSubmit', [ProfileController::class, 'editProfileSubmit'])->name('profile.edit.submit');
     Route::post('/id/{username}/edit/changePasswordSubmit', [ProfileController::class, 'changePasswordSubmit'])->name('change.password.submit');
     Route::post('/id/{username}/edit/changeEmailSubmit', [ProfileController::class, 'changeEmailSubmit'])->name('change.email.submit');
     Route::post('/id/{username}/edit/updateProfilePicture', [ProfileController::class, 'updateProfilePicture'])->name('update.profile.picture');
     Route::post('/id/{username}/edit/deleteAccount', [ProfileController::class, 'deleteAccount'])->name('delete.account.submit');
-    Route::get('/post/create', [PostController::class, 'createPost'])->name('create.post');
+
+    // post
+    Route::get('/post/new', [PostController::class, 'view'])->name('post.new');
+    Route::post('post/upload', [PostController::class, 'upload'])->name('post.upload');
+    Route::post('post/create', [PostController::class, 'create'])->name('post.create');
+    Route::get('post/{slug}', [PostController::class, 'show'])->name('post.show');
 });
 
 
 Route::get('/', [DashboardController::class, 'home'])->name('home');
 
 Route::get('id/{username}', [ProfileController::class, 'profileView'])->name('profile');
+
+// ckeditor
+Route::get('ckeditorinput', [CkeditorController::class, 'index']);
+Route::post('ckeditor/upload', [CkeditorController::class, 'upload'])->name('ckeditor.upload');
+Route::post('ckeditor/create', [CkeditorController::class, 'create'])->name('ckeditor.create');
+Route::get('ckeditor/show', [CkeditorController::class, 'show'])->name('ckeditor.show');
+// end ckeditor

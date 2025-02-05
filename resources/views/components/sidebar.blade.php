@@ -45,7 +45,7 @@
     <!-- Sidebar footer with "Write" link at the bottom -->
     @if (Auth::check())
         <div class="sidebar-footer mt-auto p-3">
-            <a class="btn btn-info w-100 mb-2" href="{{ route('create.post') }}">
+            <a class="btn btn-info w-100 mb-2" href="{{ route('post.new') }}">
                 <i class="bi bi-pencil me-2"></i> Write
             </a>
             <a class="btn btn-primary w-100" href="{{ route('profile', Auth::user()->username) }}">
