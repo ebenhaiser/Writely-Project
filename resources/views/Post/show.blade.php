@@ -1,9 +1,10 @@
 <x-layout>
     <style>
         .ckeditor-container img {
+            max-width: 100%;
             max-height: 380px;
-            min-height: 330px;
-            width: auto;
+            /* min-height: 330px; */
+            /* width: auto; */
             object-fit: contain;
             display: block;
             /* Menjadikan gambar sebagai blok elemen */

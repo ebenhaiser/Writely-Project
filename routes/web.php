@@ -7,14 +7,13 @@ use App\Http\Controllers\CkeditorController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileEditController;
+use App\Http\Controllers\ProfileViewController;
 
-// Route::get('/', function () {
-//     return view('index');
-// });
+// home
+Route::get('/', [DashboardController::class, 'home'])->name('home');
 
-
-
-
+// only guest
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'loginView'])->name('login');
     Route::post('/login/submit', [AuthController::class, 'loginSubmit'])->name('login.submit');
@@ -22,28 +21,32 @@ Route::middleware('guest')->group(function () {
     Route::post('/register/submit', [AuthController::class, 'registerSubmit'])->name('register.submit');
 });
 
+
+// only authenticated user
 Route::middleware('auth')->group(function () {
+    // logout
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    // profile
-    Route::get('/id/{username}/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
-    Route::post('/id/{username}/edit/editProfileSubmit', [ProfileController::class, 'editProfileSubmit'])->name('profile.edit.submit');
-    Route::post('/id/{username}/edit/changePasswordSubmit', [ProfileController::class, 'changePasswordSubmit'])->name('change.password.submit');
-    Route::post('/id/{username}/edit/changeEmailSubmit', [ProfileController::class, 'changeEmailSubmit'])->name('change.email.submit');
-    Route::post('/id/{username}/edit/updateProfilePicture', [ProfileController::class, 'updateProfilePicture'])->name('update.profile.picture');
-    Route::post('/id/{username}/edit/deleteAccount', [ProfileController::class, 'deleteAccount'])->name('delete.account.submit');
+    // profile edit 
+    Route::get('/id/{username}/edit', [ProfileEditController::class, 'editProfile'])->name('profile.edit');
+    Route::post('/id/{username}/edit/editProfileSubmit', [ProfileEditController::class, 'editProfileSubmit'])->name('profile.edit.submit');
+    Route::post('/id/{username}/edit/changePasswordSubmit', [ProfileEditController::class, 'changePasswordSubmit'])->name('change.password.submit');
+    Route::post('/id/{username}/edit/changeEmailSubmit', [ProfileEditController::class, 'changeEmailSubmit'])->name('change.email.submit');
+    Route::post('/id/{username}/edit/updateProfilePicture', [ProfileEditController::class, 'updateProfilePicture'])->name('update.profile.picture');
+    Route::post('/id/{username}/edit/deleteAccount', [ProfileEditController::class, 'deleteAccount'])->name('delete.account.submit');
 
     // post
-    Route::get('/post/new', [PostController::class, 'view'])->name('post.new');
+    Route::get('post/new', [PostController::class, 'view'])->name('post.new');
     Route::post('post/upload', [PostController::class, 'upload'])->name('post.upload');
     Route::post('post/create', [PostController::class, 'create'])->name('post.create');
-    Route::get('post/{slug}', [PostController::class, 'show'])->name('post.show');
 });
 
 
-Route::get('/', [DashboardController::class, 'home'])->name('home');
+// profile view
+Route::get('id/{username}', [ProfileViewController::class, 'profileView'])->name('profile');
+// view post
+Route::get('post/{slug}', [PostController::class, 'show'])->name('post.show');
 
-Route::get('id/{username}', [ProfileController::class, 'profileView'])->name('profile');
 
 // ckeditor
 Route::get('ckeditorinput', [CkeditorController::class, 'index']);

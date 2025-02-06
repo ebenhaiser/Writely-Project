@@ -2,7 +2,7 @@
     <style>
         .ckeditor-container img {
             max-height: 400px;
-            min-height: 350px;
+            /* min-height: 350px; */
             width: auto;
             object-fit: contain;
         }

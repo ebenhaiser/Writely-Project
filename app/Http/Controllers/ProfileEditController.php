@@ -9,14 +9,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class ProfileController extends Controller
+class ProfileEditController extends Controller
 {
-    public function profileView($username)
-    {
-        $profile = User::where('username', $username)->firstOrFail();
-        return view('Profile.profile', compact('profile'));
-    }
-
     public function editProfile(Request $request, $username)
     {
         if (Auth::user()->username != $username) {
@@ -144,7 +138,7 @@ class ProfileController extends Controller
             unlink($oldImage);
         }
 
-        $newImageName = hash('sha256', $profile->id . $profile->username) . '.' . $ext;
+        $newImageName = hash('sha256', $profile->id . $profile->username . time()) . '.' . $ext;
 
         // Simpan file ke storage/app/public/img/profilePicture
         // $path = $file->storeAs('public/img/profilePicture' . $newImageName);

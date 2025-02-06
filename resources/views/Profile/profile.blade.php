@@ -51,7 +51,7 @@
                             <div class="d-flex align-items-center">
                                 <div
                                     class="avatar-profile avatar-xxl avatar-indicators avatar-online me-2 position-relative d-flex justify-content-end align-items-end mt-n10">
-                                    <img src="{{ asset('img/profilePicture/' . (Auth::user()->profile_picture && file_exists(public_path('img/profilePicture/' . Auth::user()->profile_picture)) ? Auth::user()->profile_picture : 'default.jpg')) }}"
+                                    <img src="{{ asset('img/profilePicture/' . ($profile->profile_picture && file_exists(public_path('img/profilePicture/' . $profile->profile_picture)) ? $profile->profile_picture : 'default.jpg')) }}"
                                         alt=""
                                         class="avatar-xxl rounded-circle border border-4 border-white-color-40">
                                     {{-- <a class="position-absolute top-0 right-0 me-2" data-bs-toggle="tooltip"
@@ -80,7 +80,7 @@
                         <div class="mt-3 mb-3 px-4 d-flex gap-5 profile-post-follow">
                             <span>
                                 <h5>Post</h5>
-                                <p>0</p>
+                                <p>{{ $postCount }}</p>
                             </span>
                             <span>
                                 <h5>Following</h5>
@@ -111,7 +111,8 @@
                         <div class="profile-nav">
                             <ul class="nav nav-underline nav-fill">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">Posts</a>
+                                    <a class="nav-link {{ request()->is('id/*') ? 'active' : '' }}" aria-current="page"
+                                        href="#">Posts</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Likes</a>
@@ -124,8 +125,21 @@
                     </div>
                 </div>
             </div>
-
         </div>
-        <x-card-post />
+        @if (request()->is('id/*'))
+            @foreach ($posts as $post)
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $post->title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ $post->category->name }}</h6>
+                        <p class="card-text">
+                            {!! Str::limit($post->content, 150, '...') !!}
+                        </p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+            @endforeach
+        @endif
     </div>
 </x-layout>
