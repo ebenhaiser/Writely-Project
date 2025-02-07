@@ -80,7 +80,7 @@
                         <div class="mt-3 mb-3 px-4 d-flex gap-5 profile-post-follow">
                             <span>
                                 <h5>Post</h5>
-                                <p>{{ $postCount }}</p>
+                                <p>{{ count($profile->posts) }}</p>
                             </span>
                             <span>
                                 <h5>Following</h5>
@@ -111,14 +111,16 @@
                         <div class="profile-nav">
                             <ul class="nav nav-underline nav-fill">
                                 <li class="nav-item">
-                                    <a class="nav-link {{ request()->is('id/*') ? 'active' : '' }}" aria-current="page"
-                                        href="#">Posts</a>
+                                    <a class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}"
+                                        aria-current="page" href="{{ route('profile', $profile->username) }}">Posts</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Likes</a>
+                                    <a class="nav-link {{ request()->routeIs('profile.likes') ? 'active' : '' }}"
+                                        href="{{ route('profile.likes', $profile->username) }}">Likes</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Comments</a>
+                                    <a class="nav-link {{ request()->routeIs('profile.comments') ? 'active' : '' }}"
+                                        href="{{ route('profile.comments', $profile->username) }}">Comments</a>
                                 </li>
                             </ul>
                         </div>
@@ -126,10 +128,11 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            @if (request()->is('id/*'))
-                @include('Profile.post')
-            @endif
-        </div>
+        @if (request()->is('id/*/likes'))
+        @elseif (request()->is('id/*/comments'))
+
+        @elseif (request()->is('id/*'))
+            @include('Profile.post')
+        @endif
     </div>
 </x-layout>

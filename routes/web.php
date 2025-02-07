@@ -39,11 +39,15 @@ Route::middleware('auth')->group(function () {
     Route::get('post/new', [PostController::class, 'view'])->name('post.new');
     Route::post('post/upload', [PostController::class, 'upload'])->name('post.upload');
     Route::post('post/create', [PostController::class, 'create'])->name('post.create');
+    Route::get('post/{slug}/edit', [PostController::class, 'edit'])->name('post.edit');
+    Route::post('post/{slug}/submit', [PostController::class, 'update'])->name('post.update');
 });
 
 
 // profile view
 Route::get('id/{username}', [ProfileViewController::class, 'profileView'])->name('profile');
+Route::get('id/{username}/likes', [ProfileViewController::class, 'likesView'])->name('profile.likes');
+Route::get('id/{username}/comments', [ProfileViewController::class, 'commentsView'])->name('profile.comments');
 // view post
 Route::get('post/{slug}', [PostController::class, 'show'])->name('post.show');
 

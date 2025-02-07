@@ -17,26 +17,37 @@
                 <h3>Create Post</h3>
             </div>
             <div class="card-body">
-                <form action="{{ route('post.create') }}" method="post" enctype="multipart/form-data">
+                <form
+                    action="{{ request()->routeIs('post.edit') ? route('post.update', $post->slug) : route('post.create') }}"
+                    method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
-                        <input type="text" name="title" class="form-control" id="title" required>
+                        <input type="text" name="title" class="form-control" id="title"
+                            value="{{ request()->routeIs('post.edit') ? $post->title : '' }}" required>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Thumbnail</label>
                         <input type="file" name="thumbnail" class="form-control">
                     </div>
+                    @if (request()->routeIs('post.edit'))
+                        <div class="mb-3">
+                            <img src="{{ asset('img/postThumbnail/' . $post->thumbnail) }}" class="w-100"
+                                alt="" style="border-radius: 20px">
+                        </div>
+                    @endif
                     <div class="mb-3">
                         <label for="" class="form-label">Content</label>
-                        <textarea name="content" class="form-control" rows="20"></textarea>
+                        <textarea name="content" class="form-control" rows="20">{{ request()->routeIs('post.edit') ? $post->content : '' }}</textarea>
                     </div>
                     <div class="mb-3">
                         <label for="title" class="form-label">Category</label>
                         <select class="form-select" name="category_id" required>
                             <option value="">-- Choose the category --</option>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                <option value="{{ $category->id }}"
+                                    {{ request()->routeIs('post.edit') && $post->category_id == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}</option>
                             @endforeach
                         </select>
                     </div>

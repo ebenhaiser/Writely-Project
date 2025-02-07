@@ -85,4 +85,59 @@ class PostController extends Controller
         $post = Post::where('slug', $slug)->first();
         return view('Post.show', compact('post'));
     }
+
+    public function edit($slug)
+    {
+        $post = Post::where('slug', $slug)->first();
+
+        if (Auth::user()->id != $post->user_id) {
+            return redirect()->back();
+        }
+
+        $categories = Category::get();
+        return view('post.new', compact('post', 'categories'));
+    }
+
+    public function update(Request $request, $slug)
+    {
+        $post = Post::where('slug', $slug)->first();
+        $userId = Auth::user()->id;
+        $userName = Auth::user()->username;
+        if (Auth::user()->id != $post->user_id) {
+            return redirect()->back();
+        }
+
+        // upload thumbnail
+        if ($request->hasFile('thumbnail')) {
+            $request->validate([
+                'thumbnail' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
+            $file = $request->file('thumbnail');
+            $ext = $file->getClientOriginalExtension();
+
+            // menghapus foto lama
+            $oldImage = public_path('img/postThumbnail/' . $post->thumbnail);
+            if (file_exists($oldImage) && is_file($oldImage)) {
+                unlink($oldImage);
+            }
+
+            $newImageName = hash('sha256', $userId . $userName . time()) . '.' . $ext;
+            $path = $file->move(public_path('img/postThumbnail'), $newImageName);
+            $post->thumbnail = $newImageName;
+        }
+        // end upload thumbnail
+
+        // Membuat slug dengan mengubah spasi menjadi underscore dan huruf kecil
+        $slug = strtolower(str_replace(' ', '-', $request->title));
+        $slug = $slug . '-by-' . $userName;
+
+        $post->user_id = $userId;
+        $post->category_id = $request->category_id;
+        $post->title = $request->title;
+        $post->slug = $slug;
+        $post->content = $request->content;
+        $post->save();
+
+        return redirect()->route('post.show', $slug)->with('update', 'Your post updates successfully');
+    }
 }

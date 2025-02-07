@@ -22,5 +22,5 @@ yarn-error.log
 /.vscode
 /.zed
 /public/img/profilePicture
-/public/img/postImage
+/public/img/postThumbnail
 /profilePictureRaw
