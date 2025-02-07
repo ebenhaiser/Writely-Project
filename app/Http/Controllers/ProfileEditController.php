@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileEditController extends Controller
 {
@@ -141,7 +142,14 @@ class ProfileEditController extends Controller
         $newImageName = hash('sha256', $profile->id . $profile->username . time()) . '.' . $ext;
 
         // Simpan file ke storage/app/public/img/profilePicture
-        // $path = $file->storeAs('public/img/profilePicture' . $newImageName);
+        // $path = $file->store('public/img/profilePicture/');
+        // $path = Storage::disk('public')->putFileAs(
+        //     'public/profilePicture',
+        //     $file,
+        //     $newImageName
+        // );
+
+
         $path = $file->move(public_path('img/profilePicture'), $newImageName);
 
         $profile->profile_picture = $newImageName;

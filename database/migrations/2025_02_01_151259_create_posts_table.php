@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title')->default('title');
             $table->string('slug')->default('slug')->unique();
             $table->text('content');
-            // $table->string('image_url')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->timestamps();
         });
     }

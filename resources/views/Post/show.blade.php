@@ -1,32 +1,34 @@
 <x-layout>
     <style>
-        .ckeditor-container img {
-            max-width: 100%;
-            max-height: 380px;
-            /* min-height: 330px; */
-            /* width: auto; */
-            object-fit: contain;
-            display: block;
-            /* Menjadikan gambar sebagai blok elemen */
-            margin-left: auto;
-            /* Margin kiri otomatis */
-            margin-right: auto;
-            /* Margin kanan otomatis */
-        }
-
-        .ckeditor-container textarea {
-            min-height: 2000px;
+        .show-post .card img {
+            border-radius: 20px
         }
     </style>
-    <div class="container-fluid">
+    <div class="container-fluid show-post">
         <div class="card">
             <div class="card-header">
-                <h2>{{ $post->title }}</h2>
+                <div class="row">
+                    <div class="col-md-10">
+                        <h2>{{ $post->title }}</h2>
+                    </div>
+                    <div class="col-md-2" align="right">
+                        @if (Auth::user()->id == $post->user_id)
+                            <button class="btn btn-outline-primary">Edit</button>
+                        @else
+                            <button class="btn btn-primary">Like</button>
+                        @endif
+                    </div>
+                </div>
             </div>
             <div class="card-body">
-                <div class="ckeditor-container">{!! $post->content !!}</div>
+                @if ($post->thumbnail && file_exists(public_path('img/postThumbnail/' . $post->thumbnail)))
+                    <img src="{{ asset('img/postThumbnail/' . $post->thumbnail) }}" class="w-100 mb-4" alt="...">
+                @endif
+                <div class="ckeditor-container">{!! str_replace("\n", '<br>', e($post->content)) !!}
+                </div>
             </div>
             <div class="card-footer">
+                <p align="center">Likes </p>
                 <div class="row">
                     <div class="col-sm-6" align="center">
                         <p>By <a href="{{ route('profile', $post->user->username) }}"

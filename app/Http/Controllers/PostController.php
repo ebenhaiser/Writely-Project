@@ -18,6 +18,7 @@ class PostController extends Controller
         return view('post.new', compact('categories'));
     }
 
+    // for ckeditor photo upload
     public function upload(Request $request): JsonResponse
     {
         $userId = Auth::user()->id;
@@ -35,11 +36,13 @@ class PostController extends Controller
             return response()->json(['fileName' => $fileName, 'uploaded' => 1, 'url' => $url]);
         }
     }
+    // end for ckeditor photo upload
 
     public function create(Request $request)
     {
         $userId = Auth::user()->id;
         $userName = Auth::user()->username;
+        $post = new Post();
 
         // Membuat slug dengan mengubah spasi menjadi underscore dan huruf kecil
         $slug = strtolower(str_replace(' ', '-', $request->title));
@@ -53,17 +56,28 @@ class PostController extends Controller
             $slug = $originalSlug . '-' . $counter;
         }
 
-        $post = new Post();
+        // upload thumbnail
+        if ($request->hasFile('thumbnail')) {
+            $request->validate([
+                'thumbnail' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
+            $file = $request->file('thumbnail');
+            $ext = $file->getClientOriginalExtension();
+            $newImageName = hash('sha256', $userId . $userName . time()) . '.' . $ext;
+            $path = $file->move(public_path('img/postThumbnail'), $newImageName);
+            $post->thumbnail = $newImageName;
+        }
+        // end upload thumbnail
+
+
         $post->user_id = $userId;
         $post->category_id = $request->category_id;
         $post->title = $request->title;
-        // Menyimpan slug pada post
         $post->slug = $slug;
         $post->content = $request->content;
         $post->save();
 
         return redirect()->route('post.show', $slug)->with('newPost', 'New post created successfully');
-        // return redirect()->back();
     }
 
     public function show($slug)
