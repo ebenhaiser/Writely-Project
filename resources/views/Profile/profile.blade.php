@@ -3,6 +3,7 @@
         .avatar-profile img {
             width: 100px;
             height: 100px;
+            object-fit: cover;
         }
 
         .profile-name h2 {
@@ -39,6 +40,13 @@
             }
         }
     </style>
+    @if (session('deletePost'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+            {{ session('deletePost') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+        </div>
+    @endif
     <div class="caontainer-fluid">
         <div class="card">
             <div class="align-items-center row">

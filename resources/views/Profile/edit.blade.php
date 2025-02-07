@@ -63,9 +63,10 @@
         @endif
         {{-- Change profile picture --}}
         <style>
-            <style>.avatar-profile img {
-                width: 100px;
-                height: 100px;
+            .avatar-profile img {
+                /* width: 100px;
+                height: 100px; */
+                object-fit: cover;
             }
 
             .profile-name h2 {

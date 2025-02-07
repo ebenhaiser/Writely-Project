@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::post('post/create', [PostController::class, 'create'])->name('post.create');
     Route::get('post/{slug}/edit', [PostController::class, 'edit'])->name('post.edit');
     Route::post('post/{slug}/submit', [PostController::class, 'update'])->name('post.update');
+    Route::get('post/{slug}/delete', [PostController::class, 'delete'])->name('post.delete');
 });
 
 

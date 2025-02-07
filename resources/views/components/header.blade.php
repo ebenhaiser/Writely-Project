@@ -21,7 +21,8 @@
                             aria-expanded="false">
                             <span>
                                 <img src="{{ asset('img/profilePicture/' . (Auth::user()->profile_picture && file_exists(public_path('img/profilePicture/' . Auth::user()->profile_picture)) ? Auth::user()->profile_picture : 'default.jpg')) }}"
-                                    alt="" width="35" height="35" class="rounded-circle nav-icon-hover">
+                                    alt="" width="35" height="35" style="object-fit: cover"
+                                    class="rounded-circle nav-icon-hover">
                             </span>
                             <style>
                                 @media (max-width: 768px) {

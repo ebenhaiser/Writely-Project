@@ -140,4 +140,14 @@ class PostController extends Controller
 
         return redirect()->route('post.show', $slug)->with('update', 'Your post updates successfully');
     }
+
+    public function delete($slug)
+    {
+        $post = Post::where('slug', $slug)->first();
+        if (Auth::user()->id != $post->user_id) {
+            return redirect()->back();
+        }
+        $post->delete();
+        return redirect()->route('profile', Auth::user()->username)->with('deletePost', 'Your post deleted successfully');
+    }
 }
