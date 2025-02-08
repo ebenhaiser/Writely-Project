@@ -33,7 +33,7 @@ class ProfileViewController extends Controller
 
         $posts = Post::whereHas('likes', function ($query) use ($profile) {
             $query->where('user_id', $profile->id);
-        })->get();
+        })->latest()->get();
 
         return view('Profile.profile', compact('profile', 'posts'));
     }

@@ -33,29 +33,31 @@
     @forelse ($posts as $post)
         <div class="card-post col-md-4 link-dark">
             <div class="card shadow">
-                <img src="{{ asset('img/postThumbnail/' . (file_exists(public_path('img/postThumbnail/' . $post->thumbnail)) ? $post->thumbnail : 'default.jpg')) }}"
-                    class="card-img-top" alt="Thumbnail">
-                <div class="card-body">
-                    <h5 class="card-title title-limit">{{ $post->title }}</h5>
-                    <h6 class="card-subtitle mb-2 badge text-bg-info" style="color: white">
-                        {{ $post->category->name }}</h6>
-                    <p class="card-text content-limit">
-                        {{ $post->content }}
-                    </p>
-                    {{-- <a href="#" class="card-link">Card link</a> --}}
-                    <div class="d-flex gap-2" style="color: gray">
-                        <span>
-                            <i align="right">{{ $post->created_at->diffForHumans() }}</i>
-                        </span>
-                        <span>
-                            &#8226;
-                        </span>
-                        <span>
-                            <i><i class="bi bi-hand-thumbs-up"></i> <span
-                                    class="like-count">{{ count($post->likes) }}</span></i>
-                        </span>
+                <a href="{{ route('post.show', $post->slug) }}">
+                    <img src="{{ asset('img/postThumbnail/' . (file_exists(public_path('img/postThumbnail/' . $post->thumbnail)) ? $post->thumbnail : 'default.jpg')) }}"
+                        class="card-img-top" alt="Thumbnail">
+                    <div class="card-body">
+                        <h5 class="card-title title-limit">{{ $post->title }}</h5>
+                        <h6 class="card-subtitle mb-2 badge text-bg-info" style="color: white">
+                            {{ $post->category->name }}</h6>
+                        <p class="card-text content-limit" style="color: black">
+                            {{ $post->content }}
+                        </p>
+                        {{-- <a href="#" class="card-link">Card link</a> --}}
+                        <div class="d-flex gap-2" style="color: gray">
+                            <span>
+                                <i align="right">{{ $post->created_at->diffForHumans() }}</i>
+                            </span>
+                            <span>
+                                &#8226;
+                            </span>
+                            <span>
+                                <i><i class="bi bi-hand-thumbs-up"></i> <span
+                                        class="like-count">{{ count($post->likes) }}</span></i>
+                            </span>
+                        </div>
                     </div>
-                </div>
+                </a>
                 <div class="card-footer">
                     <a href="{{ route('profile', $post->user->username) }}" class="d-flex">
                         <span>
