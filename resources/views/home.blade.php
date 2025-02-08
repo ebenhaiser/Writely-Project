@@ -65,7 +65,8 @@
                         </a>
                     </div>
                     <div class="col-sm-2 my-auto" align="right">
-                        <a href="{{ route('post.show', $post->slug) }}" class="card-link">Read more &rarr;</a>
+                        <a href="{{ route('post.show', $post->slug) }}" class="btn btn-secondary">Read more
+                            &rarr;</a>
                     </div>
                 </div>
             </div>

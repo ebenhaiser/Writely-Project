@@ -75,21 +75,24 @@
                                     href="{{ route('profile.edit', $profile->username) }}">Edit Profile</a>
                             </divc>
                         @else
-                            <a class="btn btn-primary" href="">Follow</a>
+                            <button class="btn btn-primary follow-btn" data-user-id="{{ $profile->id }}">
+                                <span
+                                    class="follow-text">{{ $profile->isFollowedByUser() ? 'Unfollow' : 'Follow' }}</span>
+                            </button>
                         @endif
                     </div>
                     <div class="mt-3 mb-3 px-4 d-flex gap-5 profile-post-follow">
                         <span>
-                            <h5>Post</h5>
-                            <p>{{ count($profile->posts) }}</p>
+                            <h6>Post</h6>
+                            <p align="center">{{ count($profile->posts) }}</p>
                         </span>
                         <span>
-                            <h5>Following</h5>
-                            <p>0</p>
+                            <h6>Following</h6>
+                            <p align="center">{{ count($profile->following) }}</p>
                         </span>
                         <span>
-                            <h5>Followers</h5>
-                            <p>0</p>
+                            <h6>Followers</h6>
+                            <p align="center" class="follower-count">{{ count($profile->followers) }}</p>
                         </span>
                     </div>
 
@@ -119,20 +122,15 @@
                                 <a class="nav-link {{ request()->routeIs('profile.likes') ? 'active' : '' }}"
                                     href="{{ route('profile.likes', $profile->username) }}">Likes</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('profile.comments') ? 'active' : '' }}"
                                     href="{{ route('profile.comments', $profile->username) }}">Comments</a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @if (request()->is('id/*/likes'))
-    @elseif (request()->is('id/*/comments'))
-
-    @elseif (request()->is('id/*'))
-        @include('Profile.post')
-    @endif
+    @include('Profile.post')
 </x-layout>

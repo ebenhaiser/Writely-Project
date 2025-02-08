@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Post extends Model
 {
     protected $table = 'posts';
-    // protected $with = ['user', 'category', 'likes', 'isLikedByUser'];
+    protected $with = ['user', 'category', 'likes'];
 
     public function user()
     {
@@ -29,6 +29,9 @@ class Post extends Model
 
     public function isLikedByUser()
     {
+        if (!Auth::check()) {
+            return false;
+        }
         $userId = Auth::user()->id;
         if (!$userId) {
             return false;

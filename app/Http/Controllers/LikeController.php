@@ -12,12 +12,13 @@ class LikeController extends Controller
 {
     public function toggleLike(Request $request)
     {
+        // Jika pengguna belum login, kirim status 'unauthenticated'
+        if (!Auth::check()) {
+            return response()->json(['status' => 'unauthenticated'], 401);
+        }
+
         $post = Post::findOrFail($request->post_id);
         $userId = Auth::user()->id;
-
-        if (!$userId) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
 
         $like = Like::where('user_id', $userId)->where('post_id', $post->id)->first();
 
@@ -32,7 +33,6 @@ class LikeController extends Controller
             $status = 'liked';
         }
 
-        // Reload jumlah like setelah update
         $likeCount = Like::where('post_id', $post->id)->count();
 
         return response()->json([

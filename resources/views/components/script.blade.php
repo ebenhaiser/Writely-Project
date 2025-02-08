@@ -8,7 +8,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 {{-- CKEditor --}}
-<script>
+{{-- <script>
     ClassicEditor
         .create(document.querySelector('#ckeditor'), {
             ckfinder: {
@@ -36,7 +36,7 @@
         .catch(error => {
             console.error(error);
         });
-</script>
+</script> --}}
 
 {{-- like toggle --}}
 <script>
@@ -45,7 +45,6 @@
             let button = $(this);
             let postId = button.data('post-id');
 
-            // Temukan elemen .like-count dalam .card-footer
             let likeCountSpan = button.closest('.card').find('.like-count');
 
             $.ajax({
@@ -58,9 +57,49 @@
                 success: function(response) {
                     button.find('.like-text').text(response.status === 'liked' ? 'Unlike' :
                         'Like');
-
-                    // Update angka like count dengan nilai terbaru dari server
                     likeCountSpan.text(response.likes);
+                },
+                error: function(xhr) {
+                    if (xhr.status === 401) {
+                        // Redirect ke halaman login jika belum login
+                        window.location.href = "{{ route('login') }}";
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+{{-- follow toggle --}}
+<script>
+    $(document).ready(function() {
+        $('.follow-btn').on('click', function() {
+            let button = $(this);
+            let userId = button.data('user-id'); // Ubah dari postId ke userId
+
+            let followerCountSpan = button.closest('.card').find(
+            '.follower-count'); // Perbaiki variabel
+
+            $.ajax({
+                url: "{{ route('follow.toggle') }}",
+                method: "POST",
+                data: {
+                    user_id: userId, // Kirim user_id, bukan post_id
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    // Ubah teks tombol sesuai status follow/unfollow
+                    button.find('.follow-text').text(response.status === 'followed' ?
+                        'Unfollow' : 'Follow');
+
+                    // Update jumlah follower
+                    followerCountSpan.text(response.followers);
+                },
+                error: function(xhr) {
+                    if (xhr.status === 401) {
+                        // Redirect ke halaman login jika belum login
+                        window.location.href = "{{ route('login') }}";
+                    }
                 }
             });
         });

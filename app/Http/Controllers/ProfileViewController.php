@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,9 +19,8 @@ class ProfileViewController extends Controller
     public function profileView($username)
     {
         // Ambil data dari profile()
-        $data = $this->profile($username);
+        $profile = User::where('username', $username)->firstOrFail();
 
-        $profile = $data['profile'];
         $posts = $profile->posts;
 
         // Kirim data ke tampilan index
@@ -29,14 +29,15 @@ class ProfileViewController extends Controller
 
     public function likesView($username)
     {
-        // Ambil data dari profile()
-        $data = $this->profile($username);
+        $profile = User::where('username', $username)->firstOrFail();
 
-        $profile = $data['profile'];
-        $likes = $profile->likes;
+        $posts = Post::whereHas('likes', function ($query) use ($profile) {
+            $query->where('user_id', $profile->id);
+        })->get();
 
-        return view('Profile.profile', compact('profile', 'likes'));
+        return view('Profile.profile', compact('profile', 'posts'));
     }
+
     public function commentsView($username)
     {
         // Ambil data dari profile()
