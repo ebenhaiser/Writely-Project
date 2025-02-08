@@ -35,14 +35,12 @@
                         </a>
                     </span>
                     <span class="" align="right">
-                        <button class="btn btn-outline-primary mb-1 like-btn" data-post-id="{{ $post->id }}">
-                            <span class="like-text">{{ $post->isLikedByUser() ? 'Unlike' : 'Like' }}</span>
+                        <button class="btn btn-outline-primary mb-1">
+                            <i class="bi bi-hand-thumbs-up"></i>
                         </button>
                         @if (Auth::check() && Auth::user()->id == $post->user_id)
                             <a href="{{ route('post.edit', $post->slug) }}" class="btn btn-outline-primary">Edit</a>
                         @endif
-                        <p><i class="bi bi-hand-thumbs-up"></i> <span
-                                class="like-count">{{ $post->likes->count() }}</span></p>
                     </span>
                 </div>
             </div>
@@ -53,8 +51,15 @@
                 <div class="ckeditor-container">{!! str_replace("\n", '<br>', e($post->content)) !!}
                 </div>
             </div>
-            <div class="card-footer" align="center">
-                <p>Created at: {{ $post->created_at->format('d F Y') }}</p>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-sm-6" align="center">
+                        <p>Likes: {{ count($post->likes) }}</p>
+                    </div>
+                    <div class="col-sm-6" align="center">
+                        <p>Created at: {{ $post->created_at->format('d F Y') }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

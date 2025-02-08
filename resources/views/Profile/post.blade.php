@@ -19,7 +19,18 @@
                         {{ Str::limit($post->content, 150, '...') }}
                     </p>
                     {{-- <a href="#" class="card-link">Card link</a> --}}
-                    <i align="right">{{ $post->created_at->diffForHumans() }}</i>
+                    <div class="d-flex gap-2">
+                        <span>
+                            <i align="right">{{ $post->created_at->diffForHumans() }}</i>
+                        </span>
+                        <span>
+                            &#8226;
+                        </span>
+                        <span>
+                            <i><i class="bi bi-hand-thumbs-up"></i> <span
+                                    class="like-count">{{ count($post->likes) }}</span></i>
+                        </span>
+                    </div>
                 </div>
                 <div class="card-footer">
                     <a href="{{ route('post.show', $post->slug) }}" class="card-link">Read more &rarr;</a>

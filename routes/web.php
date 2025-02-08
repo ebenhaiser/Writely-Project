@@ -3,9 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CkeditorController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CkeditorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileEditController;
 use App\Http\Controllers\ProfileViewController;
@@ -43,6 +44,9 @@ Route::middleware('auth')->group(function () {
     Route::get('post/{slug}/edit', [PostController::class, 'edit'])->name('post.edit');
     Route::post('post/{slug}/submit', [PostController::class, 'update'])->name('post.update');
     Route::get('post/{slug}/delete', [PostController::class, 'delete'])->name('post.delete');
+
+    // like
+    Route::post('/like', [LikeController::class, 'toggleLike'])->name('like.toggle');
 });
 
 

@@ -58,7 +58,8 @@ class User extends Authenticatable
         ];
     }
 
-    protected function posts(): HasMany
+    // protected $with = ['posts'];
+    protected function posts()
     {
         return $this->hasMany(Post::class)->orderBy('created_at', 'desc');
     }

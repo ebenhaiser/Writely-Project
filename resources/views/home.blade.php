@@ -38,9 +38,13 @@
                                 &#8226;
                             </span>
                             <span>
-                                <i>Likes {{ count($post->likes) }}</i>
+                                <i><i class="bi bi-hand-thumbs-up"></i> <span
+                                        class="like-count">{{ count($post->likes) }}</span></i>
                             </span>
                         </div>
+                        <button class="btn btn-outline-primary mt-2 like-btn" data-post-id="{{ $post->id }}">
+                            <span class="like-text mt-0">{{ $post->isLikedByUser() ? 'Unlike' : 'Like' }}</span>
+                        </button>
                     </div>
                 </div>
                 <div class="card-footer row">
