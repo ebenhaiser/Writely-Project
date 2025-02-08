@@ -30,12 +30,22 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
             <ul id="sidebarnav">
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('home') }}" aria-expanded="false">
+                <li class="sidebar-item {{ request()->routeIs('home') ? 'selected' : '' }}">
+                    <a class="sidebar-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}"
+                        aria-expanded="false">
                         <span class="sidebar-icon">
                             <i class="bi bi-house"></i>
                         </span>
                         <span class="hide-menu">Home</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ request()->routeIs('/search') ? 'selected' : '' }}">
+                    <a class="sidebar-link {{ request()->routeIs('/search') ? 'active' : '' }}"
+                        href="{{ route('search') }}" aria-expanded="false">
+                        <span class="sidebar-icon">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <span class="hide-menu">Search</span>
                     </a>
                 </li>
             </ul>

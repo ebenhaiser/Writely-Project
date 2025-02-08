@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileViewController;
 
 // home
 Route::get('/', [DashboardController::class, 'home'])->name('home');
+Route::get('/search', [DashboardController::class, 'home'])->name('search');
 
 // only guest
 Route::middleware('guest')->group(function () {

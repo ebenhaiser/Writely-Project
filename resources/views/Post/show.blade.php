@@ -4,7 +4,7 @@
             border-radius: 20px
         }
     </style>
-    <div class="container-fluid show-post">
+    <div class="show-post">
         <div class="card">
             <div class="card-header">
                 <div class="row">

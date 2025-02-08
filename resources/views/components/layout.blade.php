@@ -21,11 +21,12 @@
             <x-header />
             <!--  Header End -->
             <div class="container-fluid">
+                <x-alert />
                 {{ $slot }}
-
-
-                {{-- <x-footer /> --}}
             </div>
+
+
+            {{-- <x-footer /> --}}
         </div>
     </div>
     <x-script />
