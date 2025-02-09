@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
@@ -12,5 +13,12 @@ class DashboardController extends Controller
     {
         $posts = Post::latest()->get();
         return view('home', compact('posts'));
+    }
+
+    public function search()
+    {
+        $users = User::get();
+        $posts = Post::latest()->get();
+        return view('search', compact('users', 'posts'));
     }
 }

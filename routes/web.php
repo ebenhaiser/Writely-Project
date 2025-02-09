@@ -14,7 +14,7 @@ use App\Http\Controllers\ProfileViewController;
 
 // home
 Route::get('/', [DashboardController::class, 'home'])->name('home');
-Route::get('/search', [DashboardController::class, 'home'])->name('search');
+Route::get('/search', [DashboardController::class, 'search'])->name('search');
 
 // login and register
 Route::middleware('guest')->group(function () {
@@ -40,7 +40,6 @@ Route::middleware('auth')->group(function () {
 
     // post
     Route::get('post/new', [PostController::class, 'view'])->name('post.new');
-    // Route::post('post/upload', [PostController::class, 'upload'])->name('post.upload');
     Route::post('post/create', [PostController::class, 'create'])->name('post.create');
     Route::get('post/{slug}/edit', [PostController::class, 'edit'])->name('post.edit');
     Route::post('post/{slug}/submit', [PostController::class, 'update'])->name('post.update');
@@ -59,3 +58,5 @@ Route::get('id/{username}/following', [ProfileViewController::class, 'followingV
 Route::get('id/{username}/followers', [ProfileViewController::class, 'followersView'])->name('profile.followers');
 // view post
 Route::get('post/{slug}', [PostController::class, 'show'])->name('post.show');
+
+// Route::post('post/upload', [PostController::class, 'upload'])->name('post.upload');
