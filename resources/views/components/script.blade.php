@@ -78,7 +78,7 @@
             let userId = button.data('user-id'); // Ubah dari postId ke userId
 
             let followerCountSpan = button.closest('.card').find(
-            '.follower-count'); // Perbaiki variabel
+                '.follower-count'); // Perbaiki variabel
 
             $.ajax({
                 url: "{{ route('follow.toggle') }}",

@@ -33,14 +33,14 @@
     @forelse ($posts as $post)
         <div class="card-post col-md-4 link-dark">
             <div class="card shadow">
-                <a href="{{ route('post.show', $post->slug) }}">
+                <a href="{{ route('post.show', $post->slug) }}" style="color: inherit; text-decoration: none;">
                     <img src="{{ asset('img/postThumbnail/' . (file_exists(public_path('img/postThumbnail/' . $post->thumbnail)) ? $post->thumbnail : 'default.jpg')) }}"
                         class="card-img-top" alt="Thumbnail">
                     <div class="card-body">
                         <h5 class="card-title title-limit">{{ $post->title }}</h5>
                         <h6 class="card-subtitle mb-2 badge text-bg-info" style="color: white">
                             {{ $post->category->name }}</h6>
-                        <p class="card-text content-limit" style="color: black">
+                        <p class="card-text content-limit">
                             {{ $post->content }}
                         </p>
                         {{-- <a href="#" class="card-link">Card link</a> --}}

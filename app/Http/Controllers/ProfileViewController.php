@@ -9,13 +9,6 @@ use App\Http\Controllers\Controller;
 
 class ProfileViewController extends Controller
 {
-    public function profile($username)
-    {
-        $profile = User::where('username', $username)->firstOrFail();
-        // Mengembalikan data, bukan view
-        return compact('profile');
-    }
-
     public function profileView($username)
     {
         // Ambil data dari profile()
@@ -40,12 +33,17 @@ class ProfileViewController extends Controller
 
     public function commentsView($username)
     {
-        // Ambil data dari profile()
-        $data = $this->profile($username);
+        $profile = User::where('username', $username)->firstOrFail();
 
-        $profile = $data['profile'];
         $comments = $profile->comments;
 
         return view('Profile.profile', compact('profile', 'comments'));
+    }
+
+    public function followingView($username)
+    {
+        $profile = User::where('username', $username)->firstOrFail();
+        $users = $profile->following()->get();
+        return view('Profile.follow', compact('profile', 'users'));
     }
 }

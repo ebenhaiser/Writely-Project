@@ -1,4 +1,5 @@
 <x-layout>
+    {{-- <x-slot:title>Writely</x-slot:title> --}}
     <style>
         .profile img {
             width: 50px;
