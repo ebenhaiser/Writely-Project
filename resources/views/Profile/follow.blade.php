@@ -1,4 +1,4 @@
-div<x-layout>
+<x-layout>
     <style>
         .follow-profile img {
             width: 50px;
@@ -7,7 +7,7 @@ div<x-layout>
             border-radius: 50%;
         }
     </style>
-    <h2>View {{ Auth::check() ? 'your' : $profile->name }}
+    <h2>View {{ Auth::check() && Auth::user()->id == $profile->id ? 'your' : $profile->name }}
         {{ request()->routeIs('profile.following') ? 'following' : 'follower' }}:</h2>
     <div class="row">
         @forelse ($users as $user)
@@ -34,17 +34,23 @@ div<x-layout>
                             </a>
                             <span class="my-auto">
                                 <div align="right">
-                                    <button class="btn btn-outline-primary follow-btn"
-                                        data-user-id="{{ $user->id }}">
-                                        <span
-                                            class="follow-text">{{ $user->isFollowedByUser() ? 'Unfollow' : 'Follow' }}</span>
-                                    </button>
-
+                                    @if (Auth::check() && Auth::user()->id != $user->id)
+                                        <button class="btn btn-outline-primary follow-btn"
+                                            data-user-id="{{ $user->id }}">
+                                            <span
+                                                class="follow-text">{{ $user->isFollowedByUser() ? 'Unfollow' : 'Follow' }}</span>
+                                        </button>
+                                    @else
+                                        <button class="btn btn-outline-primary follow-btn"
+                                            data-user-id="{{ $user->id }}">
+                                            <span class="follow-text">Follow</span>
+                                        </button>
+                                    @endif
                                 </div>
                             </span>
                         </div>
                     </div>
-                    <div class="card-footer d-flex justify-content-between">
+                    {{-- <div class="card-footer d-flex justify-content-between">
                         <span>
                             <h7>Post</h7>
                             <p>{{ count($user->posts) }}</p>
@@ -57,7 +63,7 @@ div<x-layout>
                             <h6>Followers</h6>
                             <p class="follower-count">{{ count($user->followers) }}</p>
                         </span>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         @empty

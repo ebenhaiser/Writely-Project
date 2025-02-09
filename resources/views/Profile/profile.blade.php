@@ -86,15 +86,19 @@
                             <h6>Post</h6>
                             <p align="center">{{ count($profile->posts) }}</p>
                         </span>
-                        <span><a href="{{ route('profile.following', $profile->username) }}"
+                        <span>
+                            <a href="{{ route('profile.following', $profile->username) }}"
                                 style="color: inherit; text-decoration: none;">
                                 <h6>Following</h6>
                                 <p align="center">{{ count($profile->following) }}</p>
                             </a>
                         </span>
                         <span>
-                            <h6>Followers</h6>
-                            <p align="center" class="follower-count">{{ count($profile->followers) }}</p>
+                            <a href="{{ route('profile.followers', $profile->username) }}"
+                                style="color: inherit; text-decoration: none;">
+                                <h6>Followers</h6>
+                                <p align="center" class="follower-count">{{ count($profile->followers) }}</p>
+                            </a>
                         </span>
                     </div>
 

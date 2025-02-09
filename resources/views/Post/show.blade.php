@@ -41,8 +41,9 @@
                         @if (Auth::check() && Auth::user()->id == $post->user_id)
                             <a href="{{ route('post.edit', $post->slug) }}" class="btn btn-outline-primary">Edit</a>
                         @endif
-                        <p><i class="bi bi-hand-thumbs-up"></i> <span
-                                class="like-count">{{ $post->likes->count() }}</span></p>
+                        <p class="bi bi-hand-thumbs-up mt-3"> <span
+                                class="like-count">{{ $post->likes->count() }}</span>
+                        </p>
                     </span>
                 </div>
             </div>
