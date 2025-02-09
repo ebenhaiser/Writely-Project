@@ -51,12 +51,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/follow', [FollowController::class, 'toggleFollow'])->name('follow.toggle');
 });
 
-
-
 // profile view
 Route::get('id/{username}', [ProfileViewController::class, 'profileView'])->name('profile');
 Route::get('id/{username}/likes', [ProfileViewController::class, 'likesView'])->name('profile.likes');
 Route::get('id/{username}/comments', [ProfileViewController::class, 'commentsView'])->name('profile.comments');
 Route::get('id/{username}/following', [ProfileViewController::class, 'followingView'])->name('profile.following');
+Route::get('id/{username}/followers', [ProfileViewController::class, 'followersView'])->name('profile.followers');
 // view post
 Route::get('post/{slug}', [PostController::class, 'show'])->name('post.show');

@@ -59,7 +59,7 @@ class User extends Authenticatable
         ];
     }
 
-    // protected $with = ['posts'];
+    // protected $with = ['posts', 'following', 'followers'];
     protected function posts()
     {
         return $this->hasMany(Post::class)->orderBy('created_at', 'desc');
@@ -75,7 +75,9 @@ class User extends Authenticatable
     // Relasi: User yang menjadi pengikut (Followers)
     public function followers()
     {
-        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
+        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id')
+            ->withTimestamps()
+            ->orderBy('follows.created_at', 'desc');
     }
 
     // Cek apakah user sudah di-follow oleh pengguna yang login

@@ -7,7 +7,8 @@ div<x-layout>
             border-radius: 50%;
         }
     </style>
-    <h2>View {{ $profile->name }} following:</h2>
+    <h2>View {{ Auth::check() ? 'your' : $profile->name }}
+        {{ request()->routeIs('profile.following') ? 'following' : 'follower' }}:</h2>
     <div class="row">
         @forelse ($users as $user)
             <div class="col-md-6">
@@ -60,7 +61,7 @@ div<x-layout>
                 </div>
             </div>
         @empty
-            <p class="mt-3">No {{ request()->routeIs('profile.following') ? 'following' : 'folloewer' }} yet.</p>
+            <p class="mt-3">No {{ request()->routeIs('profile.following') ? 'following' : 'follower' }} yet.</p>
         @endforelse
     </div>
 </x-layout>
