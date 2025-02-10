@@ -16,8 +16,6 @@ use App\Http\Controllers\ProfileViewController;
 Route::get('/', [DashboardController::class, 'home'])->name('home');
 Route::get('/search', [DashboardController::class, 'search'])->name('search');
 
-// view post
-Route::get('post/{slug}', [PostController::class, 'show'])->name('post.show');
 
 // profile view
 Route::get('id/{username}', [ProfileViewController::class, 'profileView'])->name('profile');
@@ -61,6 +59,9 @@ Route::middleware('auth')->group(function () {
 });
 
 
+
+// view post
+Route::get('post/{slug}', [PostController::class, 'show'])->name('post.show');
 
 
 // Route::post('post/upload', [PostController::class, 'upload'])->name('post.upload');

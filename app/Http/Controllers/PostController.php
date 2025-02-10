@@ -45,7 +45,8 @@ class PostController extends Controller
         $post = new Post();
 
         // Membuat slug dengan mengubah spasi menjadi underscore dan huruf kecil
-        $slug = strtolower(str_replace(' ', '-', $request->title));
+        // $slug = strtolower(str_replace(' ', '-', $request->title));
+        $slug = Str::slug($request->title);
         $slug = $slug . '-by-' . $userName;
 
         $originalSlug = $slug;
@@ -132,7 +133,8 @@ class PostController extends Controller
         // end upload thumbnail
 
         // Membuat slug dengan mengubah spasi menjadi underscore dan huruf kecil
-        $slug = strtolower(str_replace(' ', '-', $request->title));
+        // $slug = strtolower(str_replace(' ', '-', $request->title));
+        $slug = Str::slug($request->title);
         $slug = $slug . '-by-' . $userName;
 
         $post->user_id = $userId;
