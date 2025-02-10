@@ -101,23 +101,6 @@
                             </a>
                         </span>
                     </div>
-
-                    <style>
-                        .profile-nav .nav-underline .active {
-                            border-bottom: 3px solid #000000;
-                        }
-
-                        .profile-nav .nav .nav-link {
-                            color: #000000;
-                            font-weight: 700;
-                        }
-
-                        @media (max-width:768px) {
-                            .profile-nav .nav-link {
-                                font-size: 12px
-                            }
-                        }
-                    </style>
                     <div class="profile-nav">
                         <ul class="nav nav-underline nav-fill">
                             <li class="nav-item">
