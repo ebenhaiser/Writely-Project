@@ -41,10 +41,7 @@
                                                 class="follow-text">{{ $user->isFollowedByUser() ? 'Unfollow' : 'Follow' }}</span>
                                         </button>
                                     @else
-                                        <button class="btn btn-outline-primary follow-btn"
-                                            data-user-id="{{ $user->id }}">
-                                            <span class="follow-text">Follow</span>
-                                        </button>
+                                        <p style="color: gray" class="my-auto">You</p>
                                     @endif
                                 </div>
                             </span>
