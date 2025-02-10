@@ -16,6 +16,16 @@ use App\Http\Controllers\ProfileViewController;
 Route::get('/', [DashboardController::class, 'home'])->name('home');
 Route::get('/search', [DashboardController::class, 'search'])->name('search');
 
+// view post
+Route::get('post/{slug}', [PostController::class, 'show'])->name('post.show');
+
+// profile view
+Route::get('id/{username}', [ProfileViewController::class, 'profileView'])->name('profile');
+Route::get('id/{username}/likes', [ProfileViewController::class, 'likesView'])->name('profile.likes');
+Route::get('id/{username}/comments', [ProfileViewController::class, 'commentsView'])->name('profile.comments');
+Route::get('id/{username}/following', [ProfileViewController::class, 'followingView'])->name('profile.following');
+Route::get('id/{username}/followers', [ProfileViewController::class, 'followersView'])->name('profile.followers');
+
 // login and register
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'loginView'])->name('login');
@@ -39,7 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/id/{username}/edit/deleteAccount', [ProfileEditController::class, 'deleteAccount'])->name('delete.account.submit');
 
     // post
-    Route::get('post/new', [PostController::class, 'view'])->name('post.new');
+    Route::get('post/new', [PostController::class, 'new'])->name('post.new');
     Route::post('post/create', [PostController::class, 'create'])->name('post.create');
     Route::get('post/{slug}/edit', [PostController::class, 'edit'])->name('post.edit');
     Route::post('post/{slug}/submit', [PostController::class, 'update'])->name('post.update');
@@ -50,13 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/follow', [FollowController::class, 'toggleFollow'])->name('follow.toggle');
 });
 
-// profile view
-Route::get('id/{username}', [ProfileViewController::class, 'profileView'])->name('profile');
-Route::get('id/{username}/likes', [ProfileViewController::class, 'likesView'])->name('profile.likes');
-Route::get('id/{username}/comments', [ProfileViewController::class, 'commentsView'])->name('profile.comments');
-Route::get('id/{username}/following', [ProfileViewController::class, 'followingView'])->name('profile.following');
-Route::get('id/{username}/followers', [ProfileViewController::class, 'followersView'])->name('profile.followers');
-// view post
-Route::get('post/{slug}', [PostController::class, 'show'])->name('post.show');
+
+
 
 // Route::post('post/upload', [PostController::class, 'upload'])->name('post.upload');

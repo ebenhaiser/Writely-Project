@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
-    public function view()
+    public function new()
     {
         $categories = Category::get();
         return view('post.new', compact('categories'));
@@ -82,6 +82,10 @@ class PostController extends Controller
 
     public function show($slug)
     {
+        if ($slug == 'new') {
+            return $this->new();
+        }
+
         $post = Post::where('slug', $slug)->first();
         return view('Post.show', compact('post'));
     }

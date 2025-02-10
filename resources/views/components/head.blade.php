@@ -1,4 +1,13 @@
-<link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/favicon.png') }}" />
+<style>
+    link[rel="shortcut icon"] {
+        filter: brightness(0) saturate(100%) invert(22%) sepia(91%) saturate(1896%) hue-rotate(228deg) brightness(97%) contrast(93%);
+    }
+</style>
+<link rel="shortcut icon" type="image/png" id="favicon" href="{{ asset('assets/images/logos/writely-logo.png') }}" />
+
 <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Monomaniac+One&display=swap" rel="stylesheet">
