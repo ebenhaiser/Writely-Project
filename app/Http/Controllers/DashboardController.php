@@ -15,10 +15,19 @@ class DashboardController extends Controller
         return view('home', compact('posts'));
     }
 
-    public function search()
+    public function search(Request $request)
     {
-        $users = User::get();
-        $posts = Post::latest()->get();
-        return view('search', compact('users', 'posts'));
+        $query = $request->input('search');
+
+        $posts = Post::where('title', 'LIKE', "%{$query}%")
+            ->orWhere('content', 'LIKE', "%{$query}%")
+            ->get();
+
+        $users = User::where('name', 'LIKE', "%{$query}%")
+            ->orWhere('username', 'LIKE', "%{$query}%")
+            ->get();
+
+
+        return view('search', compact('posts', 'query', 'users'));
     }
 }

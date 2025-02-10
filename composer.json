@@ -8,7 +8,9 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.31",
-        "laravel/tinker": "^2.9"
+        "laravel/scout": "^10.12",
+        "laravel/tinker": "^2.9",
+        "meilisearch/meilisearch-php": "^1.12"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14",

@@ -24,13 +24,6 @@
                                     alt="" width="35" height="35" style="object-fit: cover"
                                     class="rounded-circle nav-icon-hover">
                             </span>
-                            <style>
-                                @media (max-width: 768px) {
-                                    .header-profile-name {
-                                        display: none
-                                    }
-                                }
-                            </style>
                             <span class="ms-2 fw-bold header-profile-name" style="font-size: 1rem">
                                 {{ Auth::user()->username }}
                             </span>
@@ -42,14 +35,19 @@
                                     <i class="ti ti-user fs-6"></i>
                                     <p class="mb-0 fs-3">My Profile</p>
                                 </a>
-                                <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                                <a href="{{ route('profile.edit', ['username' => Auth::user()->username]) }}"
+                                    class="d-flex align-items-center gap-2 dropdown-item">
+                                    <i class="bi bi-gear-wide-connected"></i>
+                                    <p class="mb-0 fs-3">Edit Profile</p>
+                                </a>
+                                {{-- <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
                                     <i class="ti ti-mail fs-6"></i>
                                     <p class="mb-0 fs-3">My Account</p>
                                 </a>
                                 <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
                                     <i class="ti ti-list-check fs-6"></i>
                                     <p class="mb-0 fs-3">My Task</p>
-                                </a>
+                                </a> --}}
                                 <a href="{{ route('logout') }}"
                                     class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
                             </div>

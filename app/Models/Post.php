@@ -6,9 +6,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Scout\Searchable;
 
 class Post extends Model
 {
+    use Searchable;
+
     protected $table = 'posts';
     protected $with = ['user', 'category', 'likes'];
 
@@ -38,5 +41,13 @@ class Post extends Model
         }
 
         return Like::where('user_id', $userId)->where('post_id', $this->id)->exists();
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'title'   => $this->title,
+            'content' => $this->content,
+        ];
     }
 }

@@ -105,3 +105,23 @@
         });
     });
 </script>
+
+{{-- search functionality --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchInput = document.getElementById("searchInput");
+        const clearSearch = document.getElementById("clearSearch");
+
+        // Menampilkan tombol X jika ada teks di input
+        searchInput.addEventListener("input", function() {
+            clearSearch.style.display = searchInput.value ? "block" : "none";
+        });
+
+        // Klik tombol X untuk menghapus input dan submit form
+        clearSearch.addEventListener("click", function() {
+            searchInput.value = "";
+            clearSearch.style.display = "none";
+            searchInput.form.submit(); // Kirim form otomatis dengan search kosong
+        });
+    });
+</script>
