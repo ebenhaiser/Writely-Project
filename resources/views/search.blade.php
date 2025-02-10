@@ -7,6 +7,12 @@
             border-radius: 50%;
         }
     </style>
+    <div class="card mb-3">
+        <div class="card-body d-flex gap-3">
+            <input type="text" class="form-control" placeholder="Have a question? Ask Now">
+            <button class="btn btn-primary"><i class="bi bi-search"></i></button>
+        </div>
+    </div>
     @if ($users)
         <h3 class="mb-3">Users:</h3>
         <div class="row">
@@ -33,14 +39,14 @@
                             </a>
                             <span class="my-auto">
                                 <div align="right">
-                                    @if (Auth::check() && Auth::user()->id != $user->id)
+                                    @if (!Auth::check() || Auth::id() !== $user->id)
                                         <button class="btn btn-outline-primary follow-btn"
                                             data-user-id="{{ $user->id }}">
                                             <span
                                                 class="follow-text">{{ $user->isFollowedByUser() ? 'Unfollow' : 'Follow' }}</span>
                                         </button>
                                     @else
-                                        <p style="color: gray" class="my-auto">You</p>
+                                        <p class="my-auto text-muted">You</p>
                                     @endif
                                 </div>
                             </span>
