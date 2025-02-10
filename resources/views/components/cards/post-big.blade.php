@@ -1,5 +1,5 @@
 <div class="card-post-big">
-    <div class="card shadow">
+    <div class="card">
         <div class="card-body row">
             <div class="col-md-6">
                 <img src="{{ asset('img/postThumbnail/' . (file_exists(public_path('img/postThumbnail/' . $post->thumbnail)) ? $post->thumbnail : 'default.jpg')) }}"

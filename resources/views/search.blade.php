@@ -18,20 +18,42 @@
         </div>
     </div>
     @if ($users->count() > 0)
-        <h3 class="mb-3">Users:</h3>
-        <div class="row">
-            @foreach ($users as $user)
-                <div class="col-md-6">
-                    <x-cards.user :user="$user" />
+        <div class="card">
+            <div class="card-header">
+                <h3>User</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    @foreach ($users->take(2) as $user)
+                        <div class="col-md-6">
+                            <x-cards.user :user="$user" />
+                        </div>
+                    @endforeach
                 </div>
-            @endforeach
+                @if ($users->count() > 2)
+                    <div class="" align="center">
+                        <a href="" class="link-primary">more user</a>
+                    </div>
+                @endif
+            </div>
         </div>
     @endif
     @if ($posts->count() > 0)
-        <h3 class="mb-3">Posts:</h3>
-        @foreach ($posts as $post)
-            <x-cards.post-big :post="$post" />
-        @endforeach
+        <div class="card">
+            <div class="card-header">
+                <h3 class="">Posts:</h3>
+            </div>
+            <div class="card-body">
+                @foreach ($posts->take(3) as $post)
+                    <x-cards.post-big :post="$post" />
+                @endforeach
+                @if ($posts->count() > 3)
+                    <div class="" align="center">
+                        <a href="" class="link-primary">more post</a>
+                    </div>
+                @endif
+            </div>
+        </div>
     @endif
 
 
