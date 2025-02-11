@@ -1,4 +1,7 @@
 <x-layout>
+    <x-slot:title>{{ request()->routeIs('post.edit') ? $post->title . ' (Edit) ' : 'New Post ' }}-
+        Writely</x-slot:title>
+
     <style>
         .ckeditor-container img {
             max-height: 400px;

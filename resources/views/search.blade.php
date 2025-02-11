@@ -1,4 +1,5 @@
 <x-layout>
+    <x-slot:title>Writely</x-slot:title>
     <div class="card mb-3">
         <div class="card-body">
             <form action="{{ route('search') }}" method="get">
@@ -38,7 +39,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        @if ($users->count() > 2)
+                        @if ($users->count() > 3)
                             <div align="center">
                                 <button class="btn btn-outline-info" style="border: none !important"
                                     @click="activeTab = 'user'; showTabs = true; window.scrollTo({top: 0, behavior: 'smooth'})">
@@ -58,11 +59,19 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            @foreach ($posts->take(3) as $post)
-                                <div class="col-md-4">
-                                    <x-cards.post-mini :post="$post" />
-                                </div>
-                            @endforeach
+                            @if ($posts->count() == 1)
+                                @foreach ($posts->take(1) as $post)
+                                    <div class="col-md-12">
+                                        <x-cards.post-big :post="$post" />
+                                    </div>
+                                @endforeach
+                            @elseif ($posts->count() > 1)
+                                @foreach ($posts->take(3) as $post)
+                                    <div class="col-md-4">
+                                        <x-cards.post-mini :post="$post" />
+                                    </div>
+                                @endforeach
+                            @endif
                         </div>
                         @if ($posts->count() > 3)
                             <div class="" align="center">

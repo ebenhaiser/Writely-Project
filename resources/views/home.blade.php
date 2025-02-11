@@ -1,4 +1,5 @@
 <x-layout>
+    <x-slot:title>Writely</x-slot:title>
     {{-- <x-slot:title>Writely</x-slot:title> --}}
     <style>
 

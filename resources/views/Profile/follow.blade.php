@@ -1,4 +1,5 @@
 <x-layout>
+    <x-slot:title>{{ $profile->name . ' (@' . $profile->username . ') - Writely' }}</x-slot:title>
     <h2>View {{ Auth::check() && Auth::user()->id == $profile->id ? 'your' : $profile->name }}
         {{ request()->routeIs('profile.following') ? 'following' : 'follower' }}:</h2>
     <div class="row">

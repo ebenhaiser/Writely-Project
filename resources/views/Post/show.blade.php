@@ -1,4 +1,6 @@
 <x-layout>
+    <x-slot:title>{{ $post->title . ' - Writely' }}</x-slot:title>
+
     <style>
         .show-post .card img {
             border-radius: 20px

@@ -1,4 +1,5 @@
 <x-layout>
+    <x-slot:title>Writely</x-slot:title>
     <div class="card">
         <div class="card-body">
             <form action="{{ route('explore') }}" method="get">

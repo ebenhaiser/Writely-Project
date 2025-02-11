@@ -1,4 +1,5 @@
 <x-layout>
+    <x-slot:title>{{ $profile->name . ' (@' . $profile->username . ') - Writely' }}</x-slot:title>
 
     {{-- Change profile picture --}}
     <style>
