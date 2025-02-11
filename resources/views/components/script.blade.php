@@ -125,3 +125,10 @@
         });
     });
 </script>
+
+{{-- comment --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/dayjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/plugin/relativeTime.min.js"></script>
+<script>
+    dayjs.extend(dayjs_plugin_relativeTime);
+</script>

@@ -19,8 +19,10 @@
                         &#8226;
                     </span>
                     <span>
-                        <i><i class="bi bi-hand-thumbs-up"></i> <span
-                                class="like-count">{{ count($post->likes) }}</span></i>
+                        <i class='bx bx-like'></i> <span class="like-count">{{ count($post->likes) }}</span>
+                    </span>
+                    <span>
+                        <i class='bx bx-comment'></i> <span class="like-count">{{ count($post->comments) }}</span>
                     </span>
                 </div>
             </div>

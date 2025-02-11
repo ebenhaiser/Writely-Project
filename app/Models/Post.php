@@ -13,7 +13,7 @@ class Post extends Model
     use Searchable;
 
     protected $table = 'posts';
-    protected $with = ['user', 'category', 'likes'];
+    protected $with = ['user', 'category', 'likes', 'comments'];
 
     public function user()
     {
@@ -49,5 +49,10 @@ class Post extends Model
             'title'   => $this->title,
             'content' => $this->content,
         ];
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

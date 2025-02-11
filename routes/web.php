@@ -5,10 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\FollowController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CkeditorController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\FollowController;
 use App\Http\Controllers\ProfileEditController;
 use App\Http\Controllers\ProfileViewController;
 
@@ -16,6 +17,8 @@ use App\Http\Controllers\ProfileViewController;
 Route::get('/', [DashboardController::class, 'home'])->name('home');
 Route::get('/search', [DashboardController::class, 'search'])->name('search');
 Route::get('/explore', [DashboardController::class, 'explore'])->name('explore');
+// view post
+Route::get('post/show/{slug}', [PostController::class, 'show'])->name('post.show');
 
 
 // profile view
@@ -60,10 +63,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/follow', [FollowController::class, 'toggleFollow'])->name('follow.toggle');
 });
 
+// comment
+Route::middleware('auth')->group(function () {
+    Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+});
+
+Route::get('/comments/{post}', [CommentController::class, 'index'])->name('comments.index');
 
 
-// view post
-Route::get('post/{slug}', [PostController::class, 'show'])->name('post.show');
 
 
 // Route::post('post/upload', [PostController::class, 'upload'])->name('post.upload');
