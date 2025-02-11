@@ -53,4 +53,11 @@ class ProfileViewController extends Controller
         $users = $profile->followers()->get();
         return view('Profile.follow', compact('profile', 'users'));
     }
+
+    public function postsView($username)
+    {
+        $profile = User::where('username', $username)->firstOrFail();
+        $posts = $profile->posts;
+        return view('Profile.posts', compact('profile', 'posts'));
+    }
 }

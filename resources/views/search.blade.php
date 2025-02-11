@@ -1,11 +1,12 @@
 <x-layout>
-    <x-slot:title>Writely</x-slot:title>
+    <x-slot:title>{{ request('search') ? 'Searching for "' . request('search') . '" ' : 'Search ' }}-
+        Writely</x-slot:title>
     <div class="card mb-3">
         <div class="card-body">
             <form action="{{ route('search') }}" method="get">
                 <div class="d-flex gap-2 position-relative">
                     <input type="text" name="search" id="searchInput" class="form-control"
-                        placeholder="Finding some post or user?" value="{{ request('search') }}">
+                        placeholder="Finding some post or user?" value="{{ request('search') }}" autocomplete="off">
 
                     <!-- Tombol X -->
                     <button type="button" id="clearSearch" class="btn position-absolute"

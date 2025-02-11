@@ -10,7 +10,7 @@
                     <div class="col-sm-9">
                         <h5 class="card-title">{{ $post->title }}</h5>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-3" align="right">
                         <h6 class="badge text-bg-info" style="color: white">
                             {{ $post->category->name }}</h6>
                     </div>

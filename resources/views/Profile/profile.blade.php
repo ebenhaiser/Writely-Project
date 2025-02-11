@@ -84,8 +84,11 @@
                     </div>
                     <div class="mt-3 mb-3 px-4 d-flex gap-5 profile-post-follow">
                         <span>
-                            <h6>Post</h6>
-                            <p align="center">{{ count($profile->posts) }}</p>
+                            <a href="{{ route('profile.posts', $profile->username) }}"
+                                style="color: inherit; text-decoration: none;">
+                                <h6>Post</h6>
+                                <p align="center">{{ count($profile->posts) }}</p>
+                            </a>
                         </span>
                         <span>
                             <a href="{{ route('profile.following', $profile->username) }}"
