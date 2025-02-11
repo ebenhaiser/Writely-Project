@@ -60,7 +60,7 @@ class PostController extends Controller
         // upload thumbnail
         if ($request->hasFile('thumbnail')) {
             $request->validate([
-                'thumbnail' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+                'thumbnail' => 'required|image|mimes:jpeg,png,jpg,webp,jfif|max:2048',
             ]);
             $file = $request->file('thumbnail');
             $ext = $file->getClientOriginalExtension();
@@ -86,8 +86,10 @@ class PostController extends Controller
         if ($slug == 'new') {
             return $this->new();
         }
-
         $post = Post::where('slug', $slug)->first();
+        if (!$post) {
+            return redirect()->route('home');
+        }
         return view('Post.show', compact('post'));
     }
 
@@ -115,7 +117,7 @@ class PostController extends Controller
         // upload thumbnail
         if ($request->hasFile('thumbnail')) {
             $request->validate([
-                'thumbnail' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                'thumbnail' => 'required|image|mimes:jpeg,png,jpg,webp,jfif|max:2048',
             ]);
             $file = $request->file('thumbnail');
             $ext = $file->getClientOriginalExtension();

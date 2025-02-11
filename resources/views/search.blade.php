@@ -32,8 +32,8 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            @foreach ($users->take(2) as $user)
-                                <div class="col-md-6">
+                            @foreach ($users->take(3) as $user)
+                                <div class="col-md-4">
                                     <x-cards.user :user="$user" />
                                 </div>
                             @endforeach
@@ -57,9 +57,13 @@
                         <h3 class="">Posts:</h3>
                     </div>
                     <div class="card-body">
-                        @foreach ($posts->take(3) as $post)
-                            <x-cards.post-big :post="$post" />
-                        @endforeach
+                        <div class="row">
+                            @foreach ($posts->take(3) as $post)
+                                <div class="col-md-4">
+                                    <x-cards.post-mini :post="$post" />
+                                </div>
+                            @endforeach
+                        </div>
                         @if ($posts->count() > 3)
                             <div class="" align="center">
                                 <div align="center">
@@ -102,8 +106,8 @@
                     <div class="tab-pane fade" :class="activeTab === 'user' ? 'show active' : ''" id="userTab"
                         role="tabpanel">
                         <div class="row">
-                            @forelse ($users as $user)
-                                <div class="col-md-6">
+                            @forelse ($users->take(6) as $user)
+                                <div class="col-md-4">
                                     <x-cards.user :user="$user" />
                                 </div>
                             @empty
@@ -117,13 +121,17 @@
                     <!-- Tab Posts -->
                     <div class="tab-pane fade" :class="activeTab === 'post' ? 'show active' : ''" id="postTab"
                         role="tabpanel">
-                        @forelse ($posts as $post)
-                            <x-cards.post-big :post="$post" />
-                        @empty
-                            <div align="center" class="mt-5">
-                                <i>No post found.</i>
-                            </div>
-                        @endforelse
+                        <div class="row">
+                            @forelse ($posts->take(9) as $post)
+                                <div class="col-md-4">
+                                    <x-cards.post-mini :post="$post" />
+                                </div>
+                            @empty
+                                <div align="center" class="mt-5">
+                                    <i>No post found.</i>
+                                </div>
+                            @endforelse
+                        </div>
                     </div>
                 </div>
             </div>

@@ -53,6 +53,15 @@
                         <span class="hide-menu">Search</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{ request()->routeIs('/explore') ? 'selected' : '' }}">
+                    <a class="sidebar-link {{ request()->routeIs('/explore') ? 'active' : '' }}"
+                        href="{{ route('explore') }}" aria-expanded="false">
+                        <span class="sidebar-icon">
+                            <i class="bi bi-compass"></i>
+                        </span>
+                        <span class="hide-menu">Explore</span>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>

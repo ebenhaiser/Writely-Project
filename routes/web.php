@@ -15,6 +15,7 @@ use App\Http\Controllers\ProfileViewController;
 // home
 Route::get('/', [DashboardController::class, 'home'])->name('home');
 Route::get('/search', [DashboardController::class, 'search'])->name('search');
+Route::get('/explore', [DashboardController::class, 'explore'])->name('explore');
 
 
 // profile view
