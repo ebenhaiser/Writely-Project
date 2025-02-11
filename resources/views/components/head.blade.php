@@ -16,3 +16,5 @@
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 {{-- alpine.js --}}
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x/dist/cdn.min.js" defer></script>
+{{-- box icon --}}
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>

@@ -39,7 +39,7 @@
                     <a class="sidebar-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}"
                         aria-expanded="false">
                         <span class="sidebar-icon">
-                            <i class="bi bi-house"></i>
+                            <i class='bx bx-home-alt-2'></i>
                         </span>
                         <span class="hide-menu">Home</span>
                     </a>
@@ -48,7 +48,7 @@
                     <a class="sidebar-link {{ request()->routeIs('/search') ? 'active' : '' }}"
                         href="{{ route('search') }}" aria-expanded="false">
                         <span class="sidebar-icon">
-                            <i class="bi bi-search"></i>
+                            <i class='bx bx-search-alt-2'></i>
                         </span>
                         <span class="hide-menu">Search</span>
                     </a>
@@ -57,9 +57,18 @@
                     <a class="sidebar-link {{ request()->routeIs('/explore') ? 'active' : '' }}"
                         href="{{ route('explore') }}" aria-expanded="false">
                         <span class="sidebar-icon">
-                            <i class="bi bi-compass"></i>
+                            <i class='bx bx-compass'></i>
                         </span>
                         <span class="hide-menu">Explore</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ request()->routeIs('/topAuthor') ? 'selected' : '' }}">
+                    <a class="sidebar-link {{ request()->routeIs('/topAuthor') ? 'active' : '' }}"
+                        href="{{ route('explore') }}" aria-expanded="false">
+                        <span class="sidebar-icon">
+                            <i class='bx bx-award'></i>
+                        </span>
+                        <span class="hide-menu">Top Author</span>
                     </a>
                 </li>
             </ul>

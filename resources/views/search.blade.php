@@ -14,7 +14,7 @@
                         ✖
                     </button>
 
-                    <button class="btn btn-primary"><i class="bi bi-search"></i></button>
+                    <button class="btn btn-primary"><i class='bx bx-search-alt-2'></i></button>
                 </div>
             </form>
         </div>
