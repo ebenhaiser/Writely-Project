@@ -106,7 +106,11 @@ class ProfileEditController extends Controller
         if ($profile->email != $request->email || !Hash::check($request->password, $profile->password)) {
             return redirect()->route('profile.edit', $profile->username)->with('errorDeleteAccount', 'Wrong email/password, cannot delete your account');
         }
-
+        $oldImage = public_path('img/profilePicture/' . $profile->profile_picture);
+        if (file_exists($oldImage) && is_file($oldImage) && $profile->profile_picture != 'default.jpg') {
+            unlink($oldImage);
+        }
+        // User::find($profile->id)->likes()->delete(); // Hapus semua likes dari user
         Auth::logout();
         $profile->delete();
         return redirect()->route('home')->with('successDeleteAccount', 'Account deleted successfully');
@@ -156,5 +160,24 @@ class ProfileEditController extends Controller
         $profile->save();
 
         return redirect()->route('profile.edit', $profile->username)->with('successProfilePicture', 'Profile picture updated successfully');
+    }
+
+    public function deleteProfilePicture(Request $request, $username)
+    {
+        if (Auth::user()->username != $username) {
+            return redirect()->back();
+        }
+        $profile = User::where('username', $username)->firstOrFail();
+
+        $oldImage = public_path('img/profilePicture/' . $profile->profile_picture);
+        if (file_exists($oldImage) && is_file($oldImage) && $profile->profile_picture != 'default.jpg') {
+            unlink($oldImage);
+        }
+
+        $profile->profile_picture = 'default.jpg';
+        $profile->save();
+
+
+        return redirect()->route('profile.edit', $profile->username)->with('deleteProfilePicture', 'Profile picture deleted successfully');
     }
 }

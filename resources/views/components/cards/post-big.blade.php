@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body row">
             <div class="col-md-6">
-                <img src="{{ asset('img/postThumbnail/' . (file_exists(public_path('img/postThumbnail/' . $post->thumbnail)) ? $post->thumbnail : 'default.jpg')) }}"
+                <img src="{{ asset('img/postThumbnail/' . (file_exists(public_path('img/postThumbnail/' . $post->thumbnail)) && $post->thumbnail ? $post->thumbnail : 'default.jpg')) }}"
                     class="card-img-top" alt="Thumbnail" style="object-fit: cover; height:220px; border-radius: 10px">
             </div>
             <div class="col-md-6">

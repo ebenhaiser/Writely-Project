@@ -24,8 +24,10 @@
                             <span>
                                 <div
                                     class="profile me-2 position-relative d-flex justify-content-end align-items-end mt-n10">
-                                    <img src="{{ asset('img/profilePicture/' . ($post->user->profile_picture && file_exists(public_path('img/profilePicture/' . $post->user->profile_picture)) ? $post->user->profile_picture : 'default.jpg')) }}"
-                                        alt="" class="rounded-circle border border-4 border-white-color-40">
+                                    @if ($post->user->profile_picture && file_exists(public_path('img/profilePicture/' . $post->user->profile_picture)))
+                                        <img src="{{ asset('img/profilePicture/' . $post->user->profile_picture) }}"
+                                            alt="" class="rounded-circle border border-4 border-white-color-40">
+                                    @endif
                                 </div>
                             </span>
                             <span class="my-auto ms-1">
@@ -209,8 +211,7 @@
                         <a href="{{ route('profile', '') }}/${comment.user.username}">
                         <img src="${profilePicture}" class="profile-img">
                         <div class="comment-box">
-                                <b>${comment.user.name}</b>
-                                <br />
+                                ${comment.user.name ? `<b>${comment.user.name}</b><br />` : ""}
                                 <i>&#64;${comment.user.username}</i>
                             </a>
                             <p class="mt-1">${comment.content}</p>

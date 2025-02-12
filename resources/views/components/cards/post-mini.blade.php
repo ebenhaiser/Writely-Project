@@ -1,7 +1,7 @@
 <div class="card-post-mini link-dark">
     <div class="card shadow">
         <a href="{{ route('post.show', $post->slug) }}" style="color: inherit; text-decoration: none;">
-            <img src="{{ asset('img/postThumbnail/' . (file_exists(public_path('img/postThumbnail/' . $post->thumbnail)) ? $post->thumbnail : 'default.jpg')) }}"
+            <img src="{{ asset('img/postThumbnail/' . (file_exists(public_path('img/postThumbnail/' . $post->thumbnail)) && $post->thumbnail ? $post->thumbnail : 'default.jpg')) }}"
                 class="card-img-top" alt="Thumbnail">
             <div class="card-body">
                 <h5 class="card-title title-limit">{{ $post->title }}</h5>

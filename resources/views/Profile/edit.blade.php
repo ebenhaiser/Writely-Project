@@ -65,9 +65,16 @@
                         <p class="mb-2 d-block"><i>{{ '@' . $profile->username }}</i></p>
                     </div>
                 </div>
-                <div>
+                <div align="right">
                     <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
                         data-bs-target="#change-profile-picture">Change Profile Picture</button>
+                    @if (Auth::user()->profile_picture &&
+                            file_exists(public_path('img/profilePicture/' . Auth::user()->profile_picture)) &&
+                            Auth::user()->profile_picture != 'default.jpg')
+                        <br>
+                        <button type="button" class="btn btn-danger mt-1" data-bs-toggle="modal"
+                            data-bs-target="#delete-profile-picture">Delete Profile Picture</button>
+                    @endif
                 </div>
 
                 {{-- modal --}}
@@ -95,6 +102,32 @@
                                     <button class="btn btn-primary">Change Picture</button>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="delete-profile-picture" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                    Delete Profile Picture</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" align="center">
+                                <img src="{{ asset('img/profilePicture/' . (Auth::user()->profile_picture && file_exists(public_path('img/profilePicture/' . Auth::user()->profile_picture)) ? Auth::user()->profile_picture : 'default.jpg')) }}"
+                                    alt=""
+                                    class="avatar-xxl rounded-circle border border-4 border-white-color-40"
+                                    width="130" height="130">
+                                <p class="mt-2"><i>Are you sure want to delete your profile picture?</i></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <a href="{{ route('delete.profile.picture', $profile->username) }}"
+                                    class="btn btn-danger">Delete Profile
+                                    Picture</a>
+                            </div>
                         </div>
                     </div>
                 </div>

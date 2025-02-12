@@ -58,6 +58,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
         </button>
     </div>
+@elseif (session('deleteProfilePicture'))
+    <div class="alert alert-success alert-dismissible" role="alert">
+        {{ session('deleteProfilePicture') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        </button>
+    </div>
 @elseif (session('deletePost'))
     <div class="alert alert-success alert-dismissible" role="alert">
         {{ session('deletePost') }}
