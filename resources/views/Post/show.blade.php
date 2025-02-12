@@ -103,7 +103,7 @@
             background: #f8f9fa;
             border-radius: 10px;
             padding: 10px;
-            padding-left: 10px;
+            padding-left: 8px;
             display: inline-block;
             max-width: 90%;
             position: relative;
@@ -134,7 +134,7 @@
             height: 50px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #333;
+            /* border: 3px solid #333; */
             z-index: 3;
         }
 
@@ -174,7 +174,7 @@
         }
 
         .comment-box b,
-        i,
+        .comment-box i,
         .comment-box button {
             color: black !important;
             text-decoration: none !important;
@@ -243,6 +243,7 @@
                                     </a>
                                     <p class="mt-1">${reply.content}</p>
                                     <small>${dayjs(reply.created_at).fromNow()}</small>
+                                    <button class="btn btn-sm btn-link reply-btn">Reply</button>
                                     ${canDeleteReply ? `<button class="btn btn-sm btn-link delete-comment">Delete</button>` : ""}
                                 </div>
                             </li>`;

@@ -21,11 +21,15 @@ class DashboardController extends Controller
             return view('home', compact('posts'));
         }
         $user = Auth::user();
+
         $posts = Post::whereHas('user', function ($query) use ($user) {
             $query->whereHas('followers', function ($subQuery) use ($user) {
                 $subQuery->where('follower_id', $user->id);
             });
-        })->latest()->get();
+        })
+            ->orWhere('user_id', $user->id) // Tambahkan post milik user sendiri
+            ->latest()
+            ->get();
 
         return view('home', compact('posts'));
     }

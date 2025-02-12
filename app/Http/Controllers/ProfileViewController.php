@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -34,10 +35,24 @@ class ProfileViewController extends Controller
     public function commentsView($username)
     {
         $profile = User::where('username', $username)->firstOrFail();
+        $userId = $profile->id;
 
-        $comments = $profile->comments;
+        $posts = Post::whereHas('comments', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })
+            ->with(['comments' => function ($query) use ($userId) {
+                $query->where('user_id', $userId)->latest(); // Urutkan komentar terbaru
+            }])
+            ->orderByDesc(
+                Comment::select('created_at')
+                    ->whereColumn('comments.post_id', 'posts.id')
+                    ->where('user_id', $userId)
+                    ->latest()
+                    ->take(1) // Ambil komentar terakhir dari user ini di tiap post
+            )
+            ->get();
 
-        return view('Profile.profile', compact('profile', 'comments'));
+        return view('Profile.profile', compact('profile', 'posts'));
     }
 
     public function followingView($username)

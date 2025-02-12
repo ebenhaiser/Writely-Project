@@ -31,12 +31,12 @@
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                             <div class="message-body">
                                 <a href="{{ route('profile', ['username' => Auth::user()->username]) }}"
-                                    class="d-flex align-items-center gap-2 dropdown-item">
-                                    <i class="ti ti-user fs-6"></i>
+                                    class="d-flex align-items-center gap-3 dropdown-item">
+                                    <i class="bi bi-person-circle"></i>
                                     <p class="mb-0 fs-3">My Profile</p>
                                 </a>
                                 <a href="{{ route('profile.edit', ['username' => Auth::user()->username]) }}"
-                                    class="d-flex align-items-center gap-2 dropdown-item">
+                                    class="d-flex align-items-center gap-3 dropdown-item">
                                     <i class="bi bi-gear-wide-connected"></i>
                                     <p class="mb-0 fs-3">Edit Profile</p>
                                 </a>

@@ -50,6 +50,7 @@ class AuthController extends Controller
         $user = new User();
         $user->username = $username;
         $user->email = $request->email;
+        $user->profile_picture = 'default.jpg';
         $user->password = Hash::make($request->password);
         $user->save();
 

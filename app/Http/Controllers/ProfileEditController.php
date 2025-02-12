@@ -135,7 +135,7 @@ class ProfileEditController extends Controller
 
         // Hapus gambar lama jika ada
         $oldImage = public_path('img/profilePicture/' . $profile->profile_picture);
-        if (file_exists($oldImage) && is_file($oldImage)) {
+        if (file_exists($oldImage) && is_file($oldImage) && $profile->profile_picture != 'default.jpg') {
             unlink($oldImage);
         }
 

@@ -115,10 +115,10 @@
                                 <a class="nav-link {{ request()->routeIs('profile.likes') ? 'active' : '' }}"
                                     href="{{ route('profile.likes', $profile->username) }}">Likes</a>
                             </li>
-                            {{-- <li class="nav-item">
+                            <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('profile.comments') ? 'active' : '' }}"
                                     href="{{ route('profile.comments', $profile->username) }}">Comments</a>
-                            </li> --}}
+                            </li>
                         </ul>
                     </div>
                 </div>

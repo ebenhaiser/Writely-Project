@@ -14,6 +14,9 @@ class PostController extends Controller
 {
     public function new()
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
         $categories = Category::get();
         return view('post.new', compact('categories'));
     }
