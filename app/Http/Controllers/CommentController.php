@@ -36,7 +36,6 @@ class CommentController extends Controller
         $comments = Comment::where('post_id', $postId)
             ->whereNull('parent_id')
             ->with('replies.user', 'user')
-            ->latest()
             ->get();
 
         return response()->json($comments);

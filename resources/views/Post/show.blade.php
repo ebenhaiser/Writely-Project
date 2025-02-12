@@ -78,6 +78,109 @@
         </div>
     </div>
 
+    <style>
+        ul.timeline {
+            list-style-type: none;
+            position: relative;
+            /* padding-left: 40px; */
+        }
+
+        /* HAPUS GARIS SEBELAH KIRI, tapi tetap menyisakan garis di bawah foto */
+        ul.timeline:before {
+            display: none;
+            /* Garis kiri dihapus */
+        }
+
+        ul.timeline>li {
+            margin: 20px 0;
+            position: relative;
+            padding-left: 20px;
+            min-height: 60px;
+            /* Menyesuaikan tinggi agar tidak terlalu dekat */
+        }
+
+        ul.timeline>li .comment-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 10px;
+            padding-left: 10px;
+            display: inline-block;
+            max-width: 90%;
+            position: relative;
+            margin-left: 60px;
+            /* Menyesuaikan jarak dengan foto */
+        }
+
+        ul.timeline>li:before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            width: 50px;
+            height: 50px;
+            background-size: cover;
+            background-position: center;
+            background-color: white;
+            border-radius: 50%;
+            border: 3px solid #333;
+            z-index: 2;
+        }
+
+        ul.timeline>li .profile-img {
+            position: absolute;
+            left: 10px;
+            top: 0;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #333;
+            z-index: 3;
+        }
+
+        /* Garis hanya mulai dari bawah foto */
+        ul.timeline>li:after {
+            content: '';
+            position: absolute;
+            left: 35px;
+            top: 55px;
+            /* Mulai tepat di bawah foto */
+            width: 2px;
+            height: calc(100% - 55px);
+            background: #d4d9df;
+            z-index: 1;
+        }
+
+        /* Style untuk Reply */
+        .reply {
+            margin-left: 50px;
+            position: relative;
+        }
+
+        .reply:before {
+            display: none;
+            /* Garis kiri reply dihapus */
+        }
+
+        .reply .profile-img {
+            width: 40px;
+            height: 40px;
+            left: 10px;
+            top: 5px;
+        }
+
+        .replies {
+            margin-left: 40px;
+        }
+
+        .comment-box b,
+        i,
+        .comment-box button {
+            color: black !important;
+            text-decoration: none !important;
+        }
+    </style>
+
     <!-- Load jQuery jika belum -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -90,34 +193,32 @@
                     url: "{{ route('comments.index', $post->id) }}",
                     method: "GET",
                     success: function(response) {
-                        let commentsHtml = "";
+                        let commentsHtml = '<ul class="timeline">';
+
                         response.forEach(comment => {
                             let canDelete = "{{ Auth::check() }}" &&
                                 (comment.user_id == "{{ Auth::id() }}" ||
                                     "{{ Auth::id() }}" == "{{ $post->user_id }}");
 
-                            // Cek apakah profile_picture ada, jika tidak gunakan 'default.jpg'
                             let profilePicture = comment.user.profile_picture ?
                                 `/img/profilePicture/${comment.user.profile_picture}` :
                                 `/img/profilePicture/default.jpg`;
 
                             commentsHtml += `
-                <div class="comment mb-3" data-id="${comment.id}">
-                    <a href="{{ route('profile', '') }}/${comment.user.username}" style="color: inherit; text-decoration: none;">
-                        <img src="${profilePicture}"
-                            alt=""
-                            class="rounded-circle border border-4 border-white-color-40"
-                            width="35" height="35"
-                            style="object-fit: cover;">
-                        <b>${comment.user.name}</b>
-                    </a>
-                    <p class="mt-1">${comment.content}</p>
-                    <small>${dayjs(comment.created_at).fromNow()}</small>
-                    <button class="btn btn-sm btn-outline-primary ms-1 reply-btn">Reply</button>
-                    ${canDelete ? `<button class="btn btn-sm btn-outline-danger ms-1 delete-comment">Delete</button>` : ""}
-                    <div class="replies"></div>
-                </div>
-                `;
+                    <li class="comment" data-id="${comment.id}">
+                        <a href="{{ route('profile', '') }}/${comment.user.username}">
+                        <img src="${profilePicture}" class="profile-img">
+                        <div class="comment-box">
+                                <b>${comment.user.name}</b>
+                                <br />
+                                <i>&#64;${comment.user.username}</i>
+                            </a>
+                            <p class="mt-1">${comment.content}</p>
+                            <small>${dayjs(comment.created_at).fromNow()}</small>
+                            <button class="btn btn-sm btn-link reply-btn">Reply</button>
+                            ${canDelete ? `<button class="btn btn-sm btn-link delete-comment">Delete</button>` : ""}
+                        </div>
+                        <ul class="timeline replies">`;
 
                             if (comment.replies.length > 0) {
                                 comment.replies.forEach(reply => {
@@ -132,23 +233,26 @@
                                         `/img/profilePicture/default.jpg`;
 
                                     commentsHtml += `
-                        <div class="reply ms-4 mb-3" data-id="${reply.id}">
-                            <a href="{{ route('profile', '') }}/${reply.user.username}" style="color: inherit; text-decoration: none;">
-                                <img src="${replyProfilePicture}"
-                                    alt=""
-                                    class="rounded-circle border border-4 border-white-color-40"
-                                    width="35" height="35"
-                                    style="object-fit: cover;">
-                                <b>${reply.user.name}</b>
-                            </a>
-                            <p class="mt-1">${reply.content}</p>
-                            <small>${dayjs(reply.created_at).fromNow()}</small>
-                            ${canDeleteReply ? `<button class="btn btn-sm ms-2 btn-outline-danger delete-comment">Delete</button>` : ""}
-                        </div>
-                        `;
+                            <li class="reply" data-id="${reply.id}">
+                                <a href="{{ route('profile', '') }}/${reply.user.username}">
+                                <img src="${replyProfilePicture}" class="profile-img">
+                                <div class="comment-box">
+                                        <b>${reply.user.name}</b>
+                                        <br />
+                                        <i>&#64;${reply.user.username}</i>
+                                    </a>
+                                    <p class="mt-1">${reply.content}</p>
+                                    <small>${dayjs(reply.created_at).fromNow()}</small>
+                                    ${canDeleteReply ? `<button class="btn btn-sm btn-link delete-comment">Delete</button>` : ""}
+                                </div>
+                            </li>`;
                                 });
                             }
+
+                            commentsHtml += `</ul></li>`;
                         });
+
+                        commentsHtml += '</ul>';
                         $("#comments-list").html(commentsHtml);
                     },
                     error: function(xhr) {
@@ -157,13 +261,12 @@
                 });
             }
 
-
             // Panggil loadComments pertama kali
             loadComments();
 
             // Event Klik Tombol Delete Comment
             $(document).on("click", ".delete-comment", function() {
-                let commentDiv = $(this).closest(".comment, .reply");
+                let commentDiv = $(this).closest("li");
                 let commentId = commentDiv.data("id");
 
                 if (!confirm("Are you sure you want to delete this comment?")) return;
@@ -174,7 +277,7 @@
                     data: {
                         _token: "{{ csrf_token() }}"
                     },
-                    success: function() {
+                    success: function(response) {
                         commentDiv.remove(); // Hapus komentar dari tampilan
                     },
                     error: function(xhr) {
@@ -183,8 +286,6 @@
                     }
                 });
             });
-
-            loadComments();
 
             // Event Klik Tombol Post Comment
             $(document).on("click", "#post-comment", function() {
@@ -213,20 +314,18 @@
                 });
             });
 
-            // Event Klik Tombol Reply (Delegated Event)
+            // Event Klik Tombol Reply
             $(document).on("click", ".reply-btn", function() {
-                let commentDiv = $(this).closest(".comment");
-                let commentId = commentDiv.data("id");
+                let commentDiv = $(this).closest("li.comment");
 
-                // Cek apakah sudah ada input reply sebelumnya
                 if (commentDiv.find(".reply-input").length === 0) {
                     commentDiv.append(`
-                        <div class="reply-input mt-2">
-                            <textarea class="form-control reply-content" placeholder="Write a reply..."></textarea>
-                            <button class="btn btn-sm btn-primary mt-1 post-reply" data-comment-id="${commentId}">Reply</button>
-                            <button class="btn btn-sm btn-danger mt-1 ms-1 cancel-reply">Cancel</button>
-                        </div>
-                    `);
+                <div class="reply-input mt-2 ms-5">
+                    <input class="form-control reply-content" placeholder="Write a reply..." />
+                    <button class="btn btn-sm btn-primary mt-1 post-reply">Reply</button>
+                    <button class="btn btn-sm btn-danger mt-1 ms-1 cancel-reply">Cancel</button>
+                </div>
+            `);
                 }
             });
 
@@ -237,8 +336,8 @@
 
             // Event Klik Tombol Post Reply
             $(document).on("click", ".post-reply", function() {
-                let replyDiv = $(this).closest(".comment");
-                let commentId = $(this).data("comment-id");
+                let replyDiv = $(this).closest("li.comment");
+                let commentId = replyDiv.data("id");
                 let content = replyDiv.find(".reply-content").val().trim();
 
                 if (content === "") {

@@ -71,7 +71,9 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/comments/{post}', [CommentController::class, 'index'])->name('comments.index');
 
-
+Route::get('/test', function () {
+    return view('test');
+})->name('test');
 
 
 // Route::post('post/upload', [PostController::class, 'upload'])->name('post.upload');
