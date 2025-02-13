@@ -17,6 +17,7 @@ use App\Http\Controllers\ProfileViewController;
 Route::get('/', [DashboardController::class, 'home'])->name('home');
 Route::get('/search', [DashboardController::class, 'search'])->name('search');
 Route::get('/explore', [DashboardController::class, 'explore'])->name('explore');
+Route::get('/topAuthor', [DashboardController::class, 'topAuthor'])->name('topAuthor');
 // view post
 Route::get('post/show/{slug}', [PostController::class, 'show'])->name('post.show');
 

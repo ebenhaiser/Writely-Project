@@ -64,7 +64,7 @@
                 </li>
                 <li class="sidebar-item {{ request()->routeIs('/topAuthor') ? 'selected' : '' }}">
                     <a class="sidebar-link {{ request()->routeIs('/topAuthor') ? 'active' : '' }}"
-                        href="{{ route('explore') }}" aria-expanded="false">
+                        href="{{ route('topAuthor') }}" aria-expanded="false">
                         <span class="sidebar-icon">
                             <i class='bx bx-award'></i>
                         </span>

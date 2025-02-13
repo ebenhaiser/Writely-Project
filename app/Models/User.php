@@ -60,12 +60,13 @@ class User extends Authenticatable
     }
 
     // protected $with = ['posts', 'following', 'followers'];
-    protected function posts()
+    public function posts()
     {
         return $this->hasMany(Post::class)->orderBy('created_at', 'desc');
     }
 
-    protected function likes()
+
+    public function likes()
     {
         return $this->hasMany(Like::class);
     }

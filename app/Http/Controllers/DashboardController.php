@@ -70,4 +70,17 @@ class DashboardController extends Controller
 
         return view('explore', compact('posts', 'categories'));
     }
+
+    public function topAuthor()
+    {
+        $users = User::withCount(['posts as total_likes' => function ($query) {
+            $query->join('likes', 'posts.id', '=', 'likes.post_id')
+                ->select(DB::raw('COUNT(likes.id)'));
+        }])->orderByDesc('total_likes')
+            ->limit(10) // Batasi hanya 10 user
+            ->get();
+
+
+        return view('topAuthor', compact('users'));
+    }
 }
