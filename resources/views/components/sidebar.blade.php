@@ -23,8 +23,8 @@
             <a href="{{ route('home') }}" class="text-nowrap logo-img d-flex gap-2">
                 <img src="{{ asset('assets/images/logos/writely-logo.png') }}" height="50" alt="" />
                 <span class="my-auto">
-                    <h1 style="font-weight: 100; font-family: 'Monomaniac One', serif; font-style: normal;"
-                        class="text-dark-emphasis">
+                    <h1 style="font-weight: 600; font-family: 'Varela Round', serif; font-style: normal;"
+                        class="text-dark-emphasis my-auto">
                         Writely</h1>
                 </span>
             </a>

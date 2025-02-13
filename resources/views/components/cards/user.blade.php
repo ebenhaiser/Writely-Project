@@ -3,17 +3,15 @@
         <div class="d-flex justify-content-between">
             <a href="{{ route('profile', $user->username) }}" style="color: inherit; text-decoration: none;">
                 <span class="d-flex">
-                    <span>
-                        <div class="me-2">
-                            <img src="{{ asset('img/profilePicture/' . ($user->profile_picture && file_exists(public_path('img/profilePicture/' . $user->profile_picture)) ? $user->profile_picture : 'default.jpg')) }}"
-                                alt="" class="rounded-circle border-4 border-white-color-40">
-                        </div>
-                    </span>
-                    <span class="my-auto">
+                    <div class="me-2">
+                        <img src="{{ asset('img/profilePicture/' . ($user->profile_picture && file_exists(public_path('img/profilePicture/' . $user->profile_picture)) ? $user->profile_picture : 'default.jpg')) }}"
+                            alt="" class="rounded-circle border-4 border-white-color-40">
+                    </div>
+                    <div class="my-auto">
                         <h6 class="mt-0 mb-0">{{ $user->name }}</h6>
                         <p class="mb-0 mt-0 text-body" style="text-decoration: none">
                             {{ '@' . $user->username }}</p>
-                    </span>
+                    </div>
                 </span>
             </a>
             <span class="my-auto">

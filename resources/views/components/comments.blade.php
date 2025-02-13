@@ -1,11 +1,10 @@
-<div id="comments-list" class="mb-3"></div>
-
 @auth
     <div class="d-flex gap-2">
         <input id="comment-content" class="form-control" placeholder="Write a comment..." />
         <button id="post-comment" class="btn btn-primary">Post</button>
     </div>
 @endauth
+<div id="comments-list" class="mb-3"></div>
 
 <style>
     ul.timeline {
