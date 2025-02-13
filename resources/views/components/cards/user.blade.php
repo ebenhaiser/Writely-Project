@@ -6,7 +6,7 @@
                     <span>
                         <div class="me-2">
                             <img src="{{ asset('img/profilePicture/' . ($user->profile_picture && file_exists(public_path('img/profilePicture/' . $user->profile_picture)) ? $user->profile_picture : 'default.jpg')) }}"
-                                alt="" class="rounded-circle border border-4 border-white-color-40">
+                                alt="" class="rounded-circle border-4 border-white-color-40">
                         </div>
                     </span>
                     <span class="my-auto">

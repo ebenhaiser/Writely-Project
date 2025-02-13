@@ -6,8 +6,8 @@
         }
 
         .author-section img {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             object-fit: cover;
             border-radius: 50%;
         }
@@ -40,7 +40,7 @@
                                             @if ($post->user->profile_picture && file_exists(public_path('img/profilePicture/' . $post->user->profile_picture)))
                                                 <img src="{{ asset('img/profilePicture/' . $post->user->profile_picture) }}"
                                                     alt=""
-                                                    class="rounded-circle border border-4 border-white-color-40">
+                                                    class="rounded-circle border-4 border-white-color-40">
                                             @endif
                                         </div>
                                     </span>
@@ -97,7 +97,7 @@
                                 <span>
                                     <div class="me-2">
                                         <img src="{{ asset('img/profilePicture/' . ($user->profile_picture && file_exists(public_path('img/profilePicture/' . $user->profile_picture)) ? $user->profile_picture : 'default.jpg')) }}"
-                                            alt="" class="rounded-circle border border-4 border-white-color-40">
+                                            alt="" class="rounded-circle  border-4 border-white-color-40">
                                     </div>
                                 </span>
                                 <span class="my-auto">
