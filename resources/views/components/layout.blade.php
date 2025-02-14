@@ -17,6 +17,7 @@
         <!--  Sidebar End -->
         <!--  Main wrapper -->
         <div class="body-wrapper">
+            <x-back-to-top />
             <!--  Header Start -->
             <x-header />
             <!--  Header End -->
