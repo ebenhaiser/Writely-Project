@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:title>Explore - Writely</x-slot:title>
-    <div class="card">
+    <div class="card shadow">
         <div class="card-body">
             <form action="{{ route('explore') }}" method="get">
                 <div class="d-flex gap-2">

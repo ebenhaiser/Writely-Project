@@ -2,7 +2,7 @@
     <x-slot:title>{{ request('search') ? 'Searching for "' . request('search') . '" ' : 'Search ' }}-
         Writely</x-slot:title>
     <div class="card mb-3">
-        <div class="card-body">
+        <div class="card-body shadow">
             <form action="{{ route('search') }}" method="get">
                 <div class="d-flex gap-2 position-relative">
                     <input type="text" name="search" id="searchInput" class="form-control"
@@ -28,7 +28,7 @@
         <div x-data="{ activeTab: '', showTabs: false }">
             <!-- Card User -->
             @if ($users->count() > 0)
-                <div x-show="!showTabs" class="card">
+                <div x-show="!showTabs" class="card shadow">
                     <div class="card-header">
                         <h3>User</h3>
                     </div>
@@ -54,9 +54,9 @@
 
             <!-- Card Post -->
             @if ($posts->count() > 0)
-                <div x-show="!showTabs" class="card">
+                <div x-show="!showTabs" class="card shadow">
                     <div class="card-header">
-                        <h3 class="">Posts:</h3>
+                        <h3 class="">Posts</h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -90,7 +90,7 @@
 
             <!-- Tabs muncul setelah tombol ditekan -->
             <div x-show="showTabs" x-cloak class="mt-3">
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-body">
                         <ul class="nav nav-pills nav-fill gap-3" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">

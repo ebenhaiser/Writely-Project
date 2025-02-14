@@ -42,7 +42,7 @@
         }
     </style>
 
-    <div class="card">
+    <div class="card shadow">
         <div class="align-items-center row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-12">
                 {{-- <div class="pt-20 rounded-top"

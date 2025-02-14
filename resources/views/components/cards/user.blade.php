@@ -1,4 +1,4 @@
-<div class="card user-card">
+<div class="card user-card shadow">
     <div class="card-body">
         <div class="d-flex justify-content-between">
             <a href="{{ route('profile', $user->username) }}" style="color: inherit; text-decoration: none;">

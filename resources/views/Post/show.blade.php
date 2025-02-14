@@ -12,21 +12,32 @@
             border-radius: 50%;
         }
 
-        /* @media (max-width:768px) {
-
-            .author-section,
-            .comments-section {
+        @media (min-width:768px) {
+            .author-and-comments-section {
                 position: sticky;
-                top: 20px;
-                max-height: calc(100vh - 40px);
-                overflow-y: auto;
+                top: 83px;
             }
-        } */
+
+            .author-section {
+                margin-bottom: 10px
+            }
+
+            .comments-section .card-body {
+                max-height: 450px;
+                /* Sesuaikan tinggi maksimal */
+                overflow-y: auto;
+                /* Aktifkan scroll vertikal */
+            }
+
+            .show-post .card {
+                margin-bottom: 0
+            }
+        }
     </style>
     <div class="row">
         <div class="col-lg-8">
             <div class="show-post">
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
                             <span class="">
@@ -82,61 +93,63 @@
 
         </div>
         <div class="col-lg-4">
-            <div class="card author-section">
-                <div class="card-header">
-                    <h5>Author</h5>
-                </div>
-                <div class="card-body">
-                    @php
-                        $user = $post->user;
-                    @endphp
-                    <div class="d-flex justify-content-between">
-                        <a href="{{ route('profile', $user->username) }}"
-                            style="color: inherit; text-decoration: none;">
-                            <span class="d-flex">
-                                <span>
-                                    <div class="me-2">
-                                        <img src="{{ asset('img/profilePicture/' . ($user->profile_picture && file_exists(public_path('img/profilePicture/' . $user->profile_picture)) ? $user->profile_picture : 'default.jpg')) }}"
-                                            alt="" class="rounded-circle  border-4 border-white-color-40">
-                                    </div>
-                                </span>
-                                <span class="my-auto">
-                                    <h6 class="mt-0 mb-0">{{ $user->name }}</h6>
-                                    <p class="mb-0 mt-0 text-body" style="text-decoration: none">
-                                        {{ '@' . $user->username }}</p>
-                                </span>
-                            </span>
-                        </a>
-                        <span class="my-auto">
-                            <div align="right">
-                                @if (!Auth::check() || Auth::id() !== $user->id)
-                                    <button class="btn btn-outline-primary follow-btn"
-                                        data-user-id="{{ $user->id }}">
-                                        <span
-                                            class="follow-text">{{ $user->isFollowedByUser() ? 'Unfollow' : 'Follow' }}</span>
-                                    </button>
-                                @else
-                                    <p class="my-auto text-muted">You</p>
-                                @endif
-                            </div>
-                            <div class="mt-1" align="right">
-                                <i><span class="follower-count">{{ count($user->followers) }}</span>
-                                    follower</i>
-                            </div>
-                        </span>
+            <div class="author-and-comments-section">
+                <div class="card author-section shadow">
+                    <div class="card-header">
+                        <h5>Author</h5>
                     </div>
-                </div>
+                    <div class="card-body">
+                        @php
+                            $user = $post->user;
+                        @endphp
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ route('profile', $user->username) }}"
+                                style="color: inherit; text-decoration: none;">
+                                <span class="d-flex">
+                                    <span>
+                                        <div class="me-2">
+                                            <img src="{{ asset('img/profilePicture/' . ($user->profile_picture && file_exists(public_path('img/profilePicture/' . $user->profile_picture)) ? $user->profile_picture : 'default.jpg')) }}"
+                                                alt="" class="rounded-circle  border-4 border-white-color-40">
+                                        </div>
+                                    </span>
+                                    <span class="my-auto">
+                                        <h6 class="mt-0 mb-0">{{ $user->name }}</h6>
+                                        <p class="mb-0 mt-0 text-body" style="text-decoration: none">
+                                            {{ '@' . $user->username }}</p>
+                                    </span>
+                                </span>
+                            </a>
+                            <span class="my-auto">
+                                <div align="right">
+                                    @if (!Auth::check() || Auth::id() !== $user->id)
+                                        <button class="btn btn-outline-primary follow-btn"
+                                            data-user-id="{{ $user->id }}">
+                                            <span
+                                                class="follow-text">{{ $user->isFollowedByUser() ? 'Unfollow' : 'Follow' }}</span>
+                                        </button>
+                                    @else
+                                        <p class="my-auto text-muted">You</p>
+                                    @endif
+                                </div>
+                                <div class="mt-1" align="right">
+                                    <i><span class="follower-count">{{ count($user->followers) }}</span>
+                                        follower</i>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
 
-                {{-- <x-cards.user :user="$user" /> --}}
-            </div>
-            {{-- comment --}}
-            <!-- Input Komentar -->
-            <div class="card comments-section">
-                <div class="card-header">
-                    <h5>Comments</h5>
+                    {{-- <x-cards.user :user="$user" /> --}}
                 </div>
-                <div class="card-body">
-                    <x-comments :post="$post" />
+                {{-- comment --}}
+                <!-- Input Komentar -->
+                <div class="card comments-section shadow">
+                    <div class="card-header">
+                        <h5>Comments</h5>
+                    </div>
+                    <div class="card-body">
+                        <x-comments :post="$post" />
+                    </div>
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@
     }
 </style>
 
-<aside class="left-sidebar d-flex flex-column" style="height: 100vh;">
+<aside class="left-sidebar d-flex flex-column shadow" style="height: 100vh;">
     <!-- Sidebar scroll-->
     <div class="flex-grow-1">
         <div class="brand-logo d-flex align-items-center justify-content-between">

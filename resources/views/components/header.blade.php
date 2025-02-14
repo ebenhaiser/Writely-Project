@@ -1,4 +1,4 @@
-<header class="app-header">
+<header class="app-header shadow">
     <nav class="navbar navbar-expand-lg navbar-light">
         <ul class="navbar-nav">
             <li class="nav-item d-block d-xl-none">

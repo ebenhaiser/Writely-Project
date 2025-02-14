@@ -45,9 +45,12 @@
                                         <p class="my-auto text-muted">You</p>
                                     @endif
                                 </div>
-                                <div class="mt-1" align="right">
+                                <div class="mt-2" align="right">
                                     <i><span class="follower-count">{{ count($user->followers) }}</span>
                                         follower</i>
+                                </div>
+                                <div class="mt-1" align="right">
+                                    <i>{{ $user->total_likes . ' ' }}Likes</i>
                                 </div>
                             </span>
                         </div>
