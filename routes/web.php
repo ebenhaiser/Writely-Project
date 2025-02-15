@@ -10,6 +10,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CkeditorController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\ProfileEditController;
 use App\Http\Controllers\ProfileViewController;
 
@@ -63,6 +64,10 @@ Route::middleware('auth')->group(function () {
     // like
     Route::post('/like', [LikeController::class, 'toggleLike'])->name('like.toggle');
     Route::post('/follow', [FollowController::class, 'toggleFollow'])->name('follow.toggle');
+
+    // messages
+    Route::get('/messages', [MessagesController::class, 'messages'])->name('messages');
+    Route::get('/messages/{username}', [MessagesController::class, 'messages'])->name('messages.section');
 });
 
 // comment

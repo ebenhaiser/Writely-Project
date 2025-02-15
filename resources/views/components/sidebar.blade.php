@@ -44,8 +44,8 @@
                         <span class="hide-menu">Home</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ request()->routeIs('/search') ? 'selected' : '' }}">
-                    <a class="sidebar-link {{ request()->routeIs('/search') ? 'active' : '' }}"
+                <li class="sidebar-item {{ request()->routeIs('search') ? 'selected' : '' }}">
+                    <a class="sidebar-link {{ request()->routeIs('search') ? 'active' : '' }}"
                         href="{{ route('search') }}" aria-expanded="false">
                         <span class="sidebar-icon">
                             <i class='bx bx-search-alt-2'></i>
@@ -53,8 +53,8 @@
                         <span class="hide-menu">Search</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ request()->routeIs('/explore') ? 'selected' : '' }}">
-                    <a class="sidebar-link {{ request()->routeIs('/explore') ? 'active' : '' }}"
+                <li class="sidebar-item {{ request()->routeIs('explore') ? 'selected' : '' }}">
+                    <a class="sidebar-link {{ request()->routeIs('explore') ? 'active' : '' }}"
                         href="{{ route('explore') }}" aria-expanded="false">
                         <span class="sidebar-icon">
                             <i class='bx bx-compass'></i>
@@ -62,8 +62,8 @@
                         <span class="hide-menu">Explore</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ request()->routeIs('/topAuthor') ? 'selected' : '' }}">
-                    <a class="sidebar-link {{ request()->routeIs('/topAuthor') ? 'active' : '' }}"
+                <li class="sidebar-item {{ request()->routeIs('topAuthor') ? 'selected' : '' }}">
+                    <a class="sidebar-link {{ request()->routeIs('topAuthor') ? 'active' : '' }}"
                         href="{{ route('topAuthor') }}" aria-expanded="false">
                         <span class="sidebar-icon">
                             <i class='bx bx-award'></i>
@@ -71,6 +71,17 @@
                         <span class="hide-menu">Top Author</span>
                     </a>
                 </li>
+                @if (Auth::check())
+                    <li class="sidebar-item {{ request()->routeIs('messages') ? 'selected' : '' }}">
+                        <a class="sidebar-link {{ request()->routeIs('messages') ? 'active' : '' }}"
+                            href="{{ route('messages') }}" aria-expanded="false">
+                            <span class="sidebar-icon">
+                                <i class='bx bx-chat'></i>
+                            </span>
+                            <span class="hide-menu">Messages</span>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </nav>
     </div>
